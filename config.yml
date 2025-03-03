@@ -1,10 +1,5 @@
-version: 1
 validation: sovereign
-genesis:
-  app_state:
-    staking:
-      params:
-        bond_denom: "urlf"
+version: 1
 accounts:
   - name: alice
     coins:
@@ -14,14 +9,29 @@ accounts:
     coins:
       - 10000token
       - 100000000urlf
-client:
-  openapi:
-    path: docs/static/openapi.yml
 faucet:
   name: bob
   coins:
     - 5token
     - 100000urlf
+client:
+  typescript:
+    path: ts-client
+  composables:
+    path: vue/src/composables
+  openapi:
+    path: docs/static/openapi.yml
+genesis:
+  app_state:
+    staking:
+      params:
+        bond_denom: urlf
+    wasm:
+      params:
+        code_upload_access:
+          addresses: []
+          permission: "Nobody"
+        instantiate_default_permission: "Nobody"
 validators:
   - name: alice
     bonded: 100000000urlf

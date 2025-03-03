@@ -53,6 +53,7 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
 
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	realfinmodulev1 "realfin/api/realfin/realfin/module"
 	_ "realfin/x/realfin/module" // import for side-effects
 	realfinmoduletypes "realfin/x/realfin/types"
@@ -94,6 +95,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		realfinmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -119,6 +121,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		realfinmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -138,6 +141,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		realfinmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -158,6 +162,7 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
+		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 

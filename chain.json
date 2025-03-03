@@ -1,0 +1,80 @@
+{
+  "chain_name": "realfin",
+  "status": "upcoming",
+  "network_type": "devnet",
+  "website": "https://example.com",
+  "pretty_name": "realfin",
+  "chain_type": "cosmos",
+  "chain_id": "realfin",
+  "bech32_prefix": "realfin",
+  "daemon_name": "realfind",
+  "node_home": "~/.realfin",
+  "key_algos": [
+    "secp256k1"
+  ],
+  "slip44": 118,
+  "fees": {
+    "fee_tokens": [
+      {
+        "denom": "urlf",
+        "fixed_min_gas_price": 0.025,
+        "low_gas_price": 0.01,
+        "average_gas_price": 0.025,
+        "high_gas_price": 0.03
+      }
+    ]
+  },
+  "staking": {
+    "staking_tokens": [
+      {
+        "denom": "urlf"
+      }
+    ]
+  },
+  "codebase": {
+    "git_repo": "https://github.com/realfincore/realfin-core.git",
+    "genesis": {
+      "genesis_url": ""
+    },
+    "recommended_version": "v1.0.0",
+    "compatible_versions": [
+      "v1.0.0"
+    ],
+    "consensus": {
+      "type": "cometbft",
+      "version": "v0.38.17"
+    },
+    "sdk": {
+      "type": "cosmos",
+      "version": "v0.50.12"
+    },
+    "ibc": {
+      "type": "go",
+      "version": "v1.0.1"
+    },
+    "cosmwasm": {
+      "enabled": false
+    }
+  },
+  "description": "",
+  "apis": {
+    "rpc": [
+      {
+        "address": "http://localhost:26657",
+        "provider": "localhost"
+      }
+    ],
+    "rest": [
+      {
+        "address": "http://localhost:1317",
+        "provider": "localhost"
+      }
+    ],
+    "grpc": [
+      {
+        "address": "localhost:9090",
+        "provider": "localhost"
+      }
+    ]
+  }
+}
