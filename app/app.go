@@ -75,12 +75,15 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
+	oraclemodulekeeper "realfin/x/oracle/keeper"
 	realfinmodulekeeper "realfin/x/realfin/keeper"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+
+	"realfin/docs"
 
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
-	"realfin/docs"
 )
 
 const (
@@ -149,6 +152,7 @@ type App struct {
 	WasmKeeper       wasmkeeper.Keeper
 	ScopedWasmKeeper capabilitykeeper.ScopedKeeper
 
+	OracleKeeper oraclemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -253,6 +257,7 @@ func New(
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.RealfinKeeper,
+		&app.OracleKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)

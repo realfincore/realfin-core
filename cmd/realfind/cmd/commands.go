@@ -24,9 +24,10 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	"realfin/app"
+
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmcli "github.com/CosmWasm/wasmd/x/wasm/client/cli"
-	"realfin/app"
 )
 
 func initRootCmd(

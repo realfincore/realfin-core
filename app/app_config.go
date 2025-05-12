@@ -53,10 +53,14 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
 
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	oraclemodulev1 "realfin/api/realfin/oracle/module"
 	realfinmodulev1 "realfin/api/realfin/realfin/module"
+	_ "realfin/x/oracle/module" // import for side-effects
+	oraclemoduletypes "realfin/x/oracle/types"
 	_ "realfin/x/realfin/module" // import for side-effects
 	realfinmoduletypes "realfin/x/realfin/types"
+
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -96,6 +100,7 @@ var (
 		// chain modules
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -122,6 +127,7 @@ var (
 		// chain modules
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -142,6 +148,7 @@ var (
 		// chain modules
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
+		oraclemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -301,6 +308,10 @@ var (
 			{
 				Name:   realfinmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&realfinmodulev1.Module{}),
+			},
+			{
+				Name:   oraclemoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&oraclemodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package realfin.oracle;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "realfin/oracle/params.proto";
+import "realfin/oracle/price.proto";
+
+option go_package = "realfin/x/oracle/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/realfin/oracle/params";
+  
+  }
+  
+  // Queries a list of Price items.
+  rpc Price    (QueryGetPriceRequest) returns (QueryGetPriceResponse) {
+    option (google.api.http).get = "/realfin/oracle/price/{id}";
+  
+  }
+  rpc PriceAll (QueryAllPriceRequest) returns (QueryAllPriceResponse) {
+    option (google.api.http).get = "/realfin/oracle/price";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+}
+
+message QueryGetPriceRequest {
+  uint64 id = 1;
+}
+
+message QueryGetPriceResponse {
+  Price Price = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPriceRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPriceResponse {
+  repeated Price                                  Price      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
