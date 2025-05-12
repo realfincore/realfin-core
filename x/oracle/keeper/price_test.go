@@ -2,6 +2,7 @@ package keeper_test
 
 import (
 	"context"
+	"strconv"
 	"testing"
 
 	keepertest "realfin/testutil/keeper"
@@ -12,10 +13,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Prevent strconv unused error
+var _ = strconv.IntSize
+
 func createNPrice(keeper keeper.Keeper, ctx context.Context, n int) []types.Price {
 	items := make([]types.Price, n)
 	for i := range items {
-		items[i].Id = keeper.AppendPrice(ctx, items[i])
+		items[i].Symbol = strconv.Itoa(i)
+
+		keeper.SetPrice(ctx, items[i])
 	}
 	return items
 }
@@ -24,21 +30,26 @@ func TestPriceGet(t *testing.T) {
 	keeper, ctx := keepertest.OracleKeeper(t)
 	items := createNPrice(keeper, ctx, 10)
 	for _, item := range items {
-		got, found := keeper.GetPrice(ctx, item.Id)
+		rst, found := keeper.GetPrice(ctx,
+			item.Symbol,
+		)
 		require.True(t, found)
 		require.Equal(t,
 			nullify.Fill(&item),
-			nullify.Fill(&got),
+			nullify.Fill(&rst),
 		)
 	}
 }
-
 func TestPriceRemove(t *testing.T) {
 	keeper, ctx := keepertest.OracleKeeper(t)
 	items := createNPrice(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemovePrice(ctx, item.Id)
-		_, found := keeper.GetPrice(ctx, item.Id)
+		keeper.RemovePrice(ctx,
+			item.Symbol,
+		)
+		_, found := keeper.GetPrice(ctx,
+			item.Symbol,
+		)
 		require.False(t, found)
 	}
 }
@@ -50,11 +61,4 @@ func TestPriceGetAll(t *testing.T) {
 		nullify.Fill(items),
 		nullify.Fill(keeper.GetAllPrice(ctx)),
 	)
-}
-
-func TestPriceCount(t *testing.T) {
-	keeper, ctx := keepertest.OracleKeeper(t)
-	items := createNPrice(keeper, ctx, 10)
-	count := uint64(len(items))
-	require.Equal(t, count, keeper.GetPriceCount(ctx))
 }

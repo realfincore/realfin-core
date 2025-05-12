@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	"realfin/x/oracle/types"
 
@@ -14,41 +13,51 @@ import (
 func (k msgServer) CreatePrice(goCtx context.Context, msg *types.MsgCreatePrice) (*types.MsgCreatePriceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var price = types.Price{
-		Creator: msg.Creator,
-		Symbol:  msg.Symbol,
-		Price:   msg.Price,
+	// Check if the value already exists
+	_, isFound := k.GetPrice(
+		ctx,
+		msg.Symbol,
+	)
+	if isFound {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
 	}
 
-	id := k.AppendPrice(
+	var price = types.Price{
+		Creator:   msg.Creator,
+		Symbol:    msg.Symbol,
+		Price:     msg.Price,
+		Timestamp: msg.Timestamp,
+	}
+
+	k.SetPrice(
 		ctx,
 		price,
 	)
-
-	return &types.MsgCreatePriceResponse{
-		Id: id,
-	}, nil
+	return &types.MsgCreatePriceResponse{}, nil
 }
 
 func (k msgServer) UpdatePrice(goCtx context.Context, msg *types.MsgUpdatePrice) (*types.MsgUpdatePriceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var price = types.Price{
-		Creator: msg.Creator,
-		Id:      msg.Id,
-		Symbol:  msg.Symbol,
-		Price:   msg.Price,
-	}
-
-	// Checks that the element exists
-	val, found := k.GetPrice(ctx, msg.Id)
-	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	// Check if the value exists
+	valFound, isFound := k.GetPrice(
+		ctx,
+		msg.Symbol,
+	)
+	if !isFound {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
+	if msg.Creator != valFound.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+	}
+
+	var price = types.Price{
+		Creator:   msg.Creator,
+		Symbol:    msg.Symbol,
+		Price:     msg.Price,
+		Timestamp: msg.Timestamp,
 	}
 
 	k.SetPrice(ctx, price)
@@ -59,18 +68,24 @@ func (k msgServer) UpdatePrice(goCtx context.Context, msg *types.MsgUpdatePrice)
 func (k msgServer) DeletePrice(goCtx context.Context, msg *types.MsgDeletePrice) (*types.MsgDeletePriceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Checks that the element exists
-	val, found := k.GetPrice(ctx, msg.Id)
-	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	// Check if the value exists
+	valFound, isFound := k.GetPrice(
+		ctx,
+		msg.Symbol,
+	)
+	if !isFound {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
+	if msg.Creator != valFound.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.RemovePrice(ctx, msg.Id)
+	k.RemovePrice(
+		ctx,
+		msg.Symbol,
+	)
 
 	return &types.MsgDeletePriceResponse{}, nil
 }

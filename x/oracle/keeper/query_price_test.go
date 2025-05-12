@@ -1,9 +1,9 @@
 package keeper_test
 
 import (
+	"strconv"
 	"testing"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
@@ -13,6 +13,9 @@ import (
 	"realfin/testutil/nullify"
 	"realfin/x/oracle/types"
 )
+
+// Prevent strconv unused error
+var _ = strconv.IntSize
 
 func TestPriceQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.OracleKeeper(t)
@@ -24,19 +27,25 @@ func TestPriceQuerySingle(t *testing.T) {
 		err      error
 	}{
 		{
-			desc:     "First",
-			request:  &types.QueryGetPriceRequest{Id: msgs[0].Id},
+			desc: "First",
+			request: &types.QueryGetPriceRequest{
+				Symbol: msgs[0].Symbol,
+			},
 			response: &types.QueryGetPriceResponse{Price: msgs[0]},
 		},
 		{
-			desc:     "Second",
-			request:  &types.QueryGetPriceRequest{Id: msgs[1].Id},
+			desc: "Second",
+			request: &types.QueryGetPriceRequest{
+				Symbol: msgs[1].Symbol,
+			},
 			response: &types.QueryGetPriceResponse{Price: msgs[1]},
 		},
 		{
-			desc:    "KeyNotFound",
-			request: &types.QueryGetPriceRequest{Id: uint64(len(msgs))},
-			err:     sdkerrors.ErrKeyNotFound,
+			desc: "KeyNotFound",
+			request: &types.QueryGetPriceRequest{
+				Symbol: strconv.Itoa(100000),
+			},
+			err: status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",

@@ -9,9 +9,6 @@ import (
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSubmitPrice{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreatePrice{},
 		&MsgUpdatePrice{},
 		&MsgDeletePrice{},

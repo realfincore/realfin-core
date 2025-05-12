@@ -13,19 +13,19 @@ import (
 )
 
 var (
-	md_Price         protoreflect.MessageDescriptor
-	fd_Price_id      protoreflect.FieldDescriptor
-	fd_Price_symbol  protoreflect.FieldDescriptor
-	fd_Price_price   protoreflect.FieldDescriptor
-	fd_Price_creator protoreflect.FieldDescriptor
+	md_Price           protoreflect.MessageDescriptor
+	fd_Price_symbol    protoreflect.FieldDescriptor
+	fd_Price_price     protoreflect.FieldDescriptor
+	fd_Price_timestamp protoreflect.FieldDescriptor
+	fd_Price_creator   protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_realfin_oracle_price_proto_init()
 	md_Price = File_realfin_oracle_price_proto.Messages().ByName("Price")
-	fd_Price_id = md_Price.Fields().ByName("id")
 	fd_Price_symbol = md_Price.Fields().ByName("symbol")
 	fd_Price_price = md_Price.Fields().ByName("price")
+	fd_Price_timestamp = md_Price.Fields().ByName("timestamp")
 	fd_Price_creator = md_Price.Fields().ByName("creator")
 }
 
@@ -94,12 +94,6 @@ func (x *fastReflection_Price) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_Price) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_Price_id, value) {
-			return
-		}
-	}
 	if x.Symbol != "" {
 		value := protoreflect.ValueOfString(x.Symbol)
 		if !f(fd_Price_symbol, value) {
@@ -109,6 +103,12 @@ func (x *fastReflection_Price) Range(f func(protoreflect.FieldDescriptor, protor
 	if x.Price != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.Price)
 		if !f(fd_Price_price, value) {
+			return
+		}
+	}
+	if x.Timestamp != int32(0) {
+		value := protoreflect.ValueOfInt32(x.Timestamp)
+		if !f(fd_Price_timestamp, value) {
 			return
 		}
 	}
@@ -133,12 +133,12 @@ func (x *fastReflection_Price) Range(f func(protoreflect.FieldDescriptor, protor
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Price) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "realfin.oracle.Price.id":
-		return x.Id != uint64(0)
 	case "realfin.oracle.Price.symbol":
 		return x.Symbol != ""
 	case "realfin.oracle.Price.price":
 		return x.Price != uint64(0)
+	case "realfin.oracle.Price.timestamp":
+		return x.Timestamp != int32(0)
 	case "realfin.oracle.Price.creator":
 		return x.Creator != ""
 	default:
@@ -157,12 +157,12 @@ func (x *fastReflection_Price) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Price) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "realfin.oracle.Price.id":
-		x.Id = uint64(0)
 	case "realfin.oracle.Price.symbol":
 		x.Symbol = ""
 	case "realfin.oracle.Price.price":
 		x.Price = uint64(0)
+	case "realfin.oracle.Price.timestamp":
+		x.Timestamp = int32(0)
 	case "realfin.oracle.Price.creator":
 		x.Creator = ""
 	default:
@@ -181,15 +181,15 @@ func (x *fastReflection_Price) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Price) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "realfin.oracle.Price.id":
-		value := x.Id
-		return protoreflect.ValueOfUint64(value)
 	case "realfin.oracle.Price.symbol":
 		value := x.Symbol
 		return protoreflect.ValueOfString(value)
 	case "realfin.oracle.Price.price":
 		value := x.Price
 		return protoreflect.ValueOfUint64(value)
+	case "realfin.oracle.Price.timestamp":
+		value := x.Timestamp
+		return protoreflect.ValueOfInt32(value)
 	case "realfin.oracle.Price.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
@@ -213,12 +213,12 @@ func (x *fastReflection_Price) Get(descriptor protoreflect.FieldDescriptor) prot
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Price) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "realfin.oracle.Price.id":
-		x.Id = value.Uint()
 	case "realfin.oracle.Price.symbol":
 		x.Symbol = value.Interface().(string)
 	case "realfin.oracle.Price.price":
 		x.Price = value.Uint()
+	case "realfin.oracle.Price.timestamp":
+		x.Timestamp = int32(value.Int())
 	case "realfin.oracle.Price.creator":
 		x.Creator = value.Interface().(string)
 	default:
@@ -241,12 +241,12 @@ func (x *fastReflection_Price) Set(fd protoreflect.FieldDescriptor, value protor
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Price) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "realfin.oracle.Price.id":
-		panic(fmt.Errorf("field id of message realfin.oracle.Price is not mutable"))
 	case "realfin.oracle.Price.symbol":
 		panic(fmt.Errorf("field symbol of message realfin.oracle.Price is not mutable"))
 	case "realfin.oracle.Price.price":
 		panic(fmt.Errorf("field price of message realfin.oracle.Price is not mutable"))
+	case "realfin.oracle.Price.timestamp":
+		panic(fmt.Errorf("field timestamp of message realfin.oracle.Price is not mutable"))
 	case "realfin.oracle.Price.creator":
 		panic(fmt.Errorf("field creator of message realfin.oracle.Price is not mutable"))
 	default:
@@ -262,12 +262,12 @@ func (x *fastReflection_Price) Mutable(fd protoreflect.FieldDescriptor) protoref
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Price) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "realfin.oracle.Price.id":
-		return protoreflect.ValueOfUint64(uint64(0))
 	case "realfin.oracle.Price.symbol":
 		return protoreflect.ValueOfString("")
 	case "realfin.oracle.Price.price":
 		return protoreflect.ValueOfUint64(uint64(0))
+	case "realfin.oracle.Price.timestamp":
+		return protoreflect.ValueOfInt32(int32(0))
 	case "realfin.oracle.Price.creator":
 		return protoreflect.ValueOfString("")
 	default:
@@ -339,15 +339,15 @@ func (x *fastReflection_Price) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
-		}
 		l = len(x.Symbol)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.Price != 0 {
 			n += 1 + runtime.Sov(uint64(x.Price))
+		}
+		if x.Timestamp != 0 {
+			n += 1 + runtime.Sov(uint64(x.Timestamp))
 		}
 		l = len(x.Creator)
 		if l > 0 {
@@ -389,22 +389,22 @@ func (x *fastReflection_Price) ProtoMethods() *protoiface.Methods {
 			i--
 			dAtA[i] = 0x22
 		}
+		if x.Timestamp != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Timestamp))
+			i--
+			dAtA[i] = 0x18
+		}
 		if x.Price != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Price))
 			i--
-			dAtA[i] = 0x18
+			dAtA[i] = 0x10
 		}
 		if len(x.Symbol) > 0 {
 			i -= len(x.Symbol)
 			copy(dAtA[i:], x.Symbol)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Symbol)))
 			i--
-			dAtA[i] = 0x12
-		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
-			i--
-			dAtA[i] = 0x8
+			dAtA[i] = 0xa
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -456,25 +456,6 @@ func (x *fastReflection_Price) ProtoMethods() *protoiface.Methods {
 			}
 			switch fieldNum {
 			case 1:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-				}
-				x.Id = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 2:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
 				}
@@ -506,7 +487,7 @@ func (x *fastReflection_Price) ProtoMethods() *protoiface.Methods {
 				}
 				x.Symbol = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 3:
+			case 2:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Price", wireType)
 				}
@@ -521,6 +502,25 @@ func (x *fastReflection_Price) ProtoMethods() *protoiface.Methods {
 					b := dAtA[iNdEx]
 					iNdEx++
 					x.Price |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Timestamp", wireType)
+				}
+				x.Timestamp = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Timestamp |= int32(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -610,10 +610,10 @@ type Price struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id      uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Symbol  string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Price   uint64 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
-	Creator string `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
+	Symbol    string `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Price     uint64 `protobuf:"varint,2,opt,name=price,proto3" json:"price,omitempty"`
+	Timestamp int32  `protobuf:"varint,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Creator   string `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (x *Price) Reset() {
@@ -636,13 +636,6 @@ func (*Price) Descriptor() ([]byte, []int) {
 	return file_realfin_oracle_price_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Price) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
 func (x *Price) GetSymbol() string {
 	if x != nil {
 		return x.Symbol
@@ -653,6 +646,13 @@ func (x *Price) GetSymbol() string {
 func (x *Price) GetPrice() uint64 {
 	if x != nil {
 		return x.Price
+	}
+	return 0
+}
+
+func (x *Price) GetTimestamp() int32 {
+	if x != nil {
+		return x.Timestamp
 	}
 	return 0
 }
@@ -669,23 +669,24 @@ var File_realfin_oracle_price_proto protoreflect.FileDescriptor
 var file_realfin_oracle_price_proto_rawDesc = []byte{
 	0x0a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
 	0x2f, 0x70, 0x72, 0x69, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e, 0x72, 0x65,
-	0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x22, 0x5f, 0x0a, 0x05,
-	0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14, 0x0a,
-	0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70, 0x72,
-	0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x42, 0x95, 0x01,
-	0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72,
-	0x61, 0x63, 0x6c, 0x65, 0x42, 0x0a, 0x50, 0x72, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f,
-	0x50, 0x01, 0x5a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xa2, 0x02,
-	0x03, 0x52, 0x4f, 0x58, 0xaa, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x4f,
-	0x72, 0x61, 0x63, 0x6c, 0x65, 0xca, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x5c,
-	0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xe2, 0x02, 0x1a, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e,
-	0x5c, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x3a, 0x3a, 0x4f,
-	0x72, 0x61, 0x63, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x22, 0x6d, 0x0a, 0x05,
+	0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14, 0x0a,
+	0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70, 0x72,
+	0x69, 0x63, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x42, 0x95, 0x01, 0x0a, 0x12,
+	0x63, 0x6f, 0x6d, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63,
+	0x6c, 0x65, 0x42, 0x0a, 0x50, 0x72, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
+	0x5a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65,
+	0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xa2, 0x02, 0x03, 0x52,
+	0x4f, 0x58, 0xaa, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x4f, 0x72, 0x61,
+	0x63, 0x6c, 0x65, 0xca, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x5c, 0x4f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0xe2, 0x02, 0x1a, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x5c, 0x4f,
+	0x72, 0x61, 0x63, 0x6c, 0x65, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
+	0x61, 0xea, 0x02, 0x0f, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x3a, 0x3a, 0x4f, 0x72, 0x61,
+	0x63, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

@@ -8,11 +8,18 @@ import (
 
 var _ sdk.Msg = &MsgCreatePrice{}
 
-func NewMsgCreatePrice(creator string, symbol string, price uint64) *MsgCreatePrice {
+func NewMsgCreatePrice(
+	creator string,
+	symbol string,
+	price uint64,
+	timestamp int32,
+
+) *MsgCreatePrice {
 	return &MsgCreatePrice{
-		Creator: creator,
-		Symbol:  symbol,
-		Price:   price,
+		Creator:   creator,
+		Symbol:    symbol,
+		Price:     price,
+		Timestamp: timestamp,
 	}
 }
 
@@ -26,12 +33,18 @@ func (msg *MsgCreatePrice) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdatePrice{}
 
-func NewMsgUpdatePrice(creator string, id uint64, symbol string, price uint64) *MsgUpdatePrice {
+func NewMsgUpdatePrice(
+	creator string,
+	symbol string,
+	price uint64,
+	timestamp int32,
+
+) *MsgUpdatePrice {
 	return &MsgUpdatePrice{
-		Id:      id,
-		Creator: creator,
-		Symbol:  symbol,
-		Price:   price,
+		Creator:   creator,
+		Symbol:    symbol,
+		Price:     price,
+		Timestamp: timestamp,
 	}
 }
 
@@ -45,10 +58,14 @@ func (msg *MsgUpdatePrice) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgDeletePrice{}
 
-func NewMsgDeletePrice(creator string, id uint64) *MsgDeletePrice {
+func NewMsgDeletePrice(
+	creator string,
+	symbol string,
+
+) *MsgDeletePrice {
 	return &MsgDeletePrice{
-		Id:      id,
 		Creator: creator,
+		Symbol:  symbol,
 	}
 }
 

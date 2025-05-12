@@ -872,898 +872,11 @@ func (x *fastReflection_MsgUpdateParamsResponse) ProtoMethods() *protoiface.Meth
 }
 
 var (
-	md_MsgSubmitPrice         protoreflect.MessageDescriptor
-	fd_MsgSubmitPrice_creator protoreflect.FieldDescriptor
-	fd_MsgSubmitPrice_symbol  protoreflect.FieldDescriptor
-	fd_MsgSubmitPrice_price   protoreflect.FieldDescriptor
-)
-
-func init() {
-	file_realfin_oracle_tx_proto_init()
-	md_MsgSubmitPrice = File_realfin_oracle_tx_proto.Messages().ByName("MsgSubmitPrice")
-	fd_MsgSubmitPrice_creator = md_MsgSubmitPrice.Fields().ByName("creator")
-	fd_MsgSubmitPrice_symbol = md_MsgSubmitPrice.Fields().ByName("symbol")
-	fd_MsgSubmitPrice_price = md_MsgSubmitPrice.Fields().ByName("price")
-}
-
-var _ protoreflect.Message = (*fastReflection_MsgSubmitPrice)(nil)
-
-type fastReflection_MsgSubmitPrice MsgSubmitPrice
-
-func (x *MsgSubmitPrice) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgSubmitPrice)(x)
-}
-
-func (x *MsgSubmitPrice) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-var _fastReflection_MsgSubmitPrice_messageType fastReflection_MsgSubmitPrice_messageType
-var _ protoreflect.MessageType = fastReflection_MsgSubmitPrice_messageType{}
-
-type fastReflection_MsgSubmitPrice_messageType struct{}
-
-func (x fastReflection_MsgSubmitPrice_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgSubmitPrice)(nil)
-}
-func (x fastReflection_MsgSubmitPrice_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgSubmitPrice)
-}
-func (x fastReflection_MsgSubmitPrice_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgSubmitPrice
-}
-
-// Descriptor returns message descriptor, which contains only the protobuf
-// type information for the message.
-func (x *fastReflection_MsgSubmitPrice) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgSubmitPrice
-}
-
-// Type returns the message type, which encapsulates both Go and protobuf
-// type information. If the Go type information is not needed,
-// it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgSubmitPrice) Type() protoreflect.MessageType {
-	return _fastReflection_MsgSubmitPrice_messageType
-}
-
-// New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgSubmitPrice) New() protoreflect.Message {
-	return new(fastReflection_MsgSubmitPrice)
-}
-
-// Interface unwraps the message reflection interface and
-// returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgSubmitPrice) Interface() protoreflect.ProtoMessage {
-	return (*MsgSubmitPrice)(x)
-}
-
-// Range iterates over every populated field in an undefined order,
-// calling f for each field descriptor and value encountered.
-// Range returns immediately if f returns false.
-// While iterating, mutating operations may only be performed
-// on the current field descriptor.
-func (x *fastReflection_MsgSubmitPrice) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Creator != "" {
-		value := protoreflect.ValueOfString(x.Creator)
-		if !f(fd_MsgSubmitPrice_creator, value) {
-			return
-		}
-	}
-	if x.Symbol != "" {
-		value := protoreflect.ValueOfString(x.Symbol)
-		if !f(fd_MsgSubmitPrice_symbol, value) {
-			return
-		}
-	}
-	if x.Price != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Price)
-		if !f(fd_MsgSubmitPrice_price, value) {
-			return
-		}
-	}
-}
-
-// Has reports whether a field is populated.
-//
-// Some fields have the property of nullability where it is possible to
-// distinguish between the default value of a field and whether the field
-// was explicitly populated with the default value. Singular message fields,
-// member fields of a oneof, and proto2 scalar fields are nullable. Such
-// fields are populated only if explicitly set.
-//
-// In other cases (aside from the nullable cases above),
-// a proto3 scalar field is populated if it contains a non-zero value, and
-// a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgSubmitPrice) Has(fd protoreflect.FieldDescriptor) bool {
-	switch fd.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		return x.Creator != ""
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		return x.Symbol != ""
-	case "realfin.oracle.MsgSubmitPrice.price":
-		return x.Price != uint64(0)
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", fd.FullName()))
-	}
-}
-
-// Clear clears the field such that a subsequent Has call reports false.
-//
-// Clearing an extension field clears both the extension type and value
-// associated with the given field number.
-//
-// Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPrice) Clear(fd protoreflect.FieldDescriptor) {
-	switch fd.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		x.Creator = ""
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		x.Symbol = ""
-	case "realfin.oracle.MsgSubmitPrice.price":
-		x.Price = uint64(0)
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", fd.FullName()))
-	}
-}
-
-// Get retrieves the value for a field.
-//
-// For unpopulated scalars, it returns the default value, where
-// the default value of a bytes scalar is guaranteed to be a copy.
-// For unpopulated composite types, it returns an empty, read-only view
-// of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgSubmitPrice) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
-	switch descriptor.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		value := x.Creator
-		return protoreflect.ValueOfString(value)
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		value := x.Symbol
-		return protoreflect.ValueOfString(value)
-	case "realfin.oracle.MsgSubmitPrice.price":
-		value := x.Price
-		return protoreflect.ValueOfUint64(value)
-	default:
-		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", descriptor.FullName()))
-	}
-}
-
-// Set stores the value for a field.
-//
-// For a field belonging to a oneof, it implicitly clears any other field
-// that may be currently set within the same oneof.
-// For extension fields, it implicitly stores the provided ExtensionType.
-// When setting a composite type, it is unspecified whether the stored value
-// aliases the source's memory in any way. If the composite value is an
-// empty, read-only value, then it panics.
-//
-// Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPrice) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
-	switch fd.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		x.Creator = value.Interface().(string)
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		x.Symbol = value.Interface().(string)
-	case "realfin.oracle.MsgSubmitPrice.price":
-		x.Price = value.Uint()
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", fd.FullName()))
-	}
-}
-
-// Mutable returns a mutable reference to a composite type.
-//
-// If the field is unpopulated, it may allocate a composite value.
-// For a field belonging to a oneof, it implicitly clears any other field
-// that may be currently set within the same oneof.
-// For extension fields, it implicitly stores the provided ExtensionType
-// if not already stored.
-// It panics if the field does not contain a composite type.
-//
-// Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPrice) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
-	switch fd.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		panic(fmt.Errorf("field creator of message realfin.oracle.MsgSubmitPrice is not mutable"))
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		panic(fmt.Errorf("field symbol of message realfin.oracle.MsgSubmitPrice is not mutable"))
-	case "realfin.oracle.MsgSubmitPrice.price":
-		panic(fmt.Errorf("field price of message realfin.oracle.MsgSubmitPrice is not mutable"))
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", fd.FullName()))
-	}
-}
-
-// NewField returns a new value that is assignable to the field
-// for the given descriptor. For scalars, this returns the default value.
-// For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgSubmitPrice) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
-	switch fd.FullName() {
-	case "realfin.oracle.MsgSubmitPrice.creator":
-		return protoreflect.ValueOfString("")
-	case "realfin.oracle.MsgSubmitPrice.symbol":
-		return protoreflect.ValueOfString("")
-	case "realfin.oracle.MsgSubmitPrice.price":
-		return protoreflect.ValueOfUint64(uint64(0))
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPrice"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPrice does not contain field %s", fd.FullName()))
-	}
-}
-
-// WhichOneof reports which field within the oneof is populated,
-// returning nil if none are populated.
-// It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgSubmitPrice) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
-	switch d.FullName() {
-	default:
-		panic(fmt.Errorf("%s is not a oneof field in realfin.oracle.MsgSubmitPrice", d.FullName()))
-	}
-	panic("unreachable")
-}
-
-// GetUnknown retrieves the entire list of unknown fields.
-// The caller may only mutate the contents of the RawFields
-// if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgSubmitPrice) GetUnknown() protoreflect.RawFields {
-	return x.unknownFields
-}
-
-// SetUnknown stores an entire list of unknown fields.
-// The raw fields must be syntactically valid according to the wire format.
-// An implementation may panic if this is not the case.
-// Once stored, the caller must not mutate the content of the RawFields.
-// An empty RawFields may be passed to clear the fields.
-//
-// SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPrice) SetUnknown(fields protoreflect.RawFields) {
-	x.unknownFields = fields
-}
-
-// IsValid reports whether the message is valid.
-//
-// An invalid message is an empty, read-only value.
-//
-// An invalid message often corresponds to a nil pointer of the concrete
-// message type, but the details are implementation dependent.
-// Validity is not part of the protobuf data model, and may not
-// be preserved in marshaling or other operations.
-func (x *fastReflection_MsgSubmitPrice) IsValid() bool {
-	return x != nil
-}
-
-// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
-// This method may return nil.
-//
-// The returned methods type is identical to
-// "google.golang.org/protobuf/runtime/protoiface".Methods.
-// Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgSubmitPrice) ProtoMethods() *protoiface.Methods {
-	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgSubmitPrice)
-		if x == nil {
-			return protoiface.SizeOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Size:              0,
-			}
-		}
-		options := runtime.SizeInputToOptions(input)
-		_ = options
-		var n int
-		var l int
-		_ = l
-		l = len(x.Creator)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
-		l = len(x.Symbol)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
-		if x.Price != 0 {
-			n += 1 + runtime.Sov(uint64(x.Price))
-		}
-		if x.unknownFields != nil {
-			n += len(x.unknownFields)
-		}
-		return protoiface.SizeOutput{
-			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-			Size:              n,
-		}
-	}
-
-	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgSubmitPrice)
-		if x == nil {
-			return protoiface.MarshalOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Buf:               input.Buf,
-			}, nil
-		}
-		options := runtime.MarshalInputToOptions(input)
-		_ = options
-		size := options.Size(x)
-		dAtA := make([]byte, size)
-		i := len(dAtA)
-		_ = i
-		var l int
-		_ = l
-		if x.unknownFields != nil {
-			i -= len(x.unknownFields)
-			copy(dAtA[i:], x.unknownFields)
-		}
-		if x.Price != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Price))
-			i--
-			dAtA[i] = 0x18
-		}
-		if len(x.Symbol) > 0 {
-			i -= len(x.Symbol)
-			copy(dAtA[i:], x.Symbol)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Symbol)))
-			i--
-			dAtA[i] = 0x12
-		}
-		if len(x.Creator) > 0 {
-			i -= len(x.Creator)
-			copy(dAtA[i:], x.Creator)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
-			i--
-			dAtA[i] = 0xa
-		}
-		if input.Buf != nil {
-			input.Buf = append(input.Buf, dAtA...)
-		} else {
-			input.Buf = dAtA
-		}
-		return protoiface.MarshalOutput{
-			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-			Buf:               input.Buf,
-		}, nil
-	}
-	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgSubmitPrice)
-		if x == nil {
-			return protoiface.UnmarshalOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Flags:             input.Flags,
-			}, nil
-		}
-		options := runtime.UnmarshalInputToOptions(input)
-		_ = options
-		dAtA := input.Buf
-		l := len(dAtA)
-		iNdEx := 0
-		for iNdEx < l {
-			preIndex := iNdEx
-			var wire uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-				}
-				if iNdEx >= l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				wire |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			fieldNum := int32(wire >> 3)
-			wireType := int(wire & 0x7)
-			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitPrice: wiretype end group for non-group")
-			}
-			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitPrice: illegal tag %d (wire type %d)", fieldNum, wire)
-			}
-			switch fieldNum {
-			case 1:
-				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Creator = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 2:
-				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Symbol = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 3:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Price", wireType)
-				}
-				x.Price = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.Price |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			default:
-				iNdEx = preIndex
-				skippy, err := runtime.Skip(dAtA[iNdEx:])
-				if err != nil {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
-				}
-				if (skippy < 0) || (iNdEx+skippy) < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if (iNdEx + skippy) > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				if !options.DiscardUnknown {
-					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
-				}
-				iNdEx += skippy
-			}
-		}
-
-		if iNdEx > l {
-			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-		}
-		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
-	}
-	return &protoiface.Methods{
-		NoUnkeyedLiterals: struct{}{},
-		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
-		Size:              size,
-		Marshal:           marshal,
-		Unmarshal:         unmarshal,
-		Merge:             nil,
-		CheckInitialized:  nil,
-	}
-}
-
-var (
-	md_MsgSubmitPriceResponse protoreflect.MessageDescriptor
-)
-
-func init() {
-	file_realfin_oracle_tx_proto_init()
-	md_MsgSubmitPriceResponse = File_realfin_oracle_tx_proto.Messages().ByName("MsgSubmitPriceResponse")
-}
-
-var _ protoreflect.Message = (*fastReflection_MsgSubmitPriceResponse)(nil)
-
-type fastReflection_MsgSubmitPriceResponse MsgSubmitPriceResponse
-
-func (x *MsgSubmitPriceResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgSubmitPriceResponse)(x)
-}
-
-func (x *MsgSubmitPriceResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-var _fastReflection_MsgSubmitPriceResponse_messageType fastReflection_MsgSubmitPriceResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgSubmitPriceResponse_messageType{}
-
-type fastReflection_MsgSubmitPriceResponse_messageType struct{}
-
-func (x fastReflection_MsgSubmitPriceResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgSubmitPriceResponse)(nil)
-}
-func (x fastReflection_MsgSubmitPriceResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgSubmitPriceResponse)
-}
-func (x fastReflection_MsgSubmitPriceResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgSubmitPriceResponse
-}
-
-// Descriptor returns message descriptor, which contains only the protobuf
-// type information for the message.
-func (x *fastReflection_MsgSubmitPriceResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgSubmitPriceResponse
-}
-
-// Type returns the message type, which encapsulates both Go and protobuf
-// type information. If the Go type information is not needed,
-// it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgSubmitPriceResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgSubmitPriceResponse_messageType
-}
-
-// New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgSubmitPriceResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgSubmitPriceResponse)
-}
-
-// Interface unwraps the message reflection interface and
-// returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgSubmitPriceResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgSubmitPriceResponse)(x)
-}
-
-// Range iterates over every populated field in an undefined order,
-// calling f for each field descriptor and value encountered.
-// Range returns immediately if f returns false.
-// While iterating, mutating operations may only be performed
-// on the current field descriptor.
-func (x *fastReflection_MsgSubmitPriceResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-}
-
-// Has reports whether a field is populated.
-//
-// Some fields have the property of nullability where it is possible to
-// distinguish between the default value of a field and whether the field
-// was explicitly populated with the default value. Singular message fields,
-// member fields of a oneof, and proto2 scalar fields are nullable. Such
-// fields are populated only if explicitly set.
-//
-// In other cases (aside from the nullable cases above),
-// a proto3 scalar field is populated if it contains a non-zero value, and
-// a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgSubmitPriceResponse) Has(fd protoreflect.FieldDescriptor) bool {
-	switch fd.FullName() {
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", fd.FullName()))
-	}
-}
-
-// Clear clears the field such that a subsequent Has call reports false.
-//
-// Clearing an extension field clears both the extension type and value
-// associated with the given field number.
-//
-// Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPriceResponse) Clear(fd protoreflect.FieldDescriptor) {
-	switch fd.FullName() {
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", fd.FullName()))
-	}
-}
-
-// Get retrieves the value for a field.
-//
-// For unpopulated scalars, it returns the default value, where
-// the default value of a bytes scalar is guaranteed to be a copy.
-// For unpopulated composite types, it returns an empty, read-only view
-// of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgSubmitPriceResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
-	switch descriptor.FullName() {
-	default:
-		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", descriptor.FullName()))
-	}
-}
-
-// Set stores the value for a field.
-//
-// For a field belonging to a oneof, it implicitly clears any other field
-// that may be currently set within the same oneof.
-// For extension fields, it implicitly stores the provided ExtensionType.
-// When setting a composite type, it is unspecified whether the stored value
-// aliases the source's memory in any way. If the composite value is an
-// empty, read-only value, then it panics.
-//
-// Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPriceResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
-	switch fd.FullName() {
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", fd.FullName()))
-	}
-}
-
-// Mutable returns a mutable reference to a composite type.
-//
-// If the field is unpopulated, it may allocate a composite value.
-// For a field belonging to a oneof, it implicitly clears any other field
-// that may be currently set within the same oneof.
-// For extension fields, it implicitly stores the provided ExtensionType
-// if not already stored.
-// It panics if the field does not contain a composite type.
-//
-// Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPriceResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
-	switch fd.FullName() {
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", fd.FullName()))
-	}
-}
-
-// NewField returns a new value that is assignable to the field
-// for the given descriptor. For scalars, this returns the default value.
-// For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgSubmitPriceResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
-	switch fd.FullName() {
-	default:
-		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgSubmitPriceResponse"))
-		}
-		panic(fmt.Errorf("message realfin.oracle.MsgSubmitPriceResponse does not contain field %s", fd.FullName()))
-	}
-}
-
-// WhichOneof reports which field within the oneof is populated,
-// returning nil if none are populated.
-// It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgSubmitPriceResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
-	switch d.FullName() {
-	default:
-		panic(fmt.Errorf("%s is not a oneof field in realfin.oracle.MsgSubmitPriceResponse", d.FullName()))
-	}
-	panic("unreachable")
-}
-
-// GetUnknown retrieves the entire list of unknown fields.
-// The caller may only mutate the contents of the RawFields
-// if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgSubmitPriceResponse) GetUnknown() protoreflect.RawFields {
-	return x.unknownFields
-}
-
-// SetUnknown stores an entire list of unknown fields.
-// The raw fields must be syntactically valid according to the wire format.
-// An implementation may panic if this is not the case.
-// Once stored, the caller must not mutate the content of the RawFields.
-// An empty RawFields may be passed to clear the fields.
-//
-// SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgSubmitPriceResponse) SetUnknown(fields protoreflect.RawFields) {
-	x.unknownFields = fields
-}
-
-// IsValid reports whether the message is valid.
-//
-// An invalid message is an empty, read-only value.
-//
-// An invalid message often corresponds to a nil pointer of the concrete
-// message type, but the details are implementation dependent.
-// Validity is not part of the protobuf data model, and may not
-// be preserved in marshaling or other operations.
-func (x *fastReflection_MsgSubmitPriceResponse) IsValid() bool {
-	return x != nil
-}
-
-// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
-// This method may return nil.
-//
-// The returned methods type is identical to
-// "google.golang.org/protobuf/runtime/protoiface".Methods.
-// Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgSubmitPriceResponse) ProtoMethods() *protoiface.Methods {
-	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgSubmitPriceResponse)
-		if x == nil {
-			return protoiface.SizeOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Size:              0,
-			}
-		}
-		options := runtime.SizeInputToOptions(input)
-		_ = options
-		var n int
-		var l int
-		_ = l
-		if x.unknownFields != nil {
-			n += len(x.unknownFields)
-		}
-		return protoiface.SizeOutput{
-			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-			Size:              n,
-		}
-	}
-
-	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgSubmitPriceResponse)
-		if x == nil {
-			return protoiface.MarshalOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Buf:               input.Buf,
-			}, nil
-		}
-		options := runtime.MarshalInputToOptions(input)
-		_ = options
-		size := options.Size(x)
-		dAtA := make([]byte, size)
-		i := len(dAtA)
-		_ = i
-		var l int
-		_ = l
-		if x.unknownFields != nil {
-			i -= len(x.unknownFields)
-			copy(dAtA[i:], x.unknownFields)
-		}
-		if input.Buf != nil {
-			input.Buf = append(input.Buf, dAtA...)
-		} else {
-			input.Buf = dAtA
-		}
-		return protoiface.MarshalOutput{
-			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-			Buf:               input.Buf,
-		}, nil
-	}
-	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgSubmitPriceResponse)
-		if x == nil {
-			return protoiface.UnmarshalOutput{
-				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
-				Flags:             input.Flags,
-			}, nil
-		}
-		options := runtime.UnmarshalInputToOptions(input)
-		_ = options
-		dAtA := input.Buf
-		l := len(dAtA)
-		iNdEx := 0
-		for iNdEx < l {
-			preIndex := iNdEx
-			var wire uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-				}
-				if iNdEx >= l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				wire |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			fieldNum := int32(wire >> 3)
-			wireType := int(wire & 0x7)
-			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitPriceResponse: wiretype end group for non-group")
-			}
-			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitPriceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-			}
-			switch fieldNum {
-			default:
-				iNdEx = preIndex
-				skippy, err := runtime.Skip(dAtA[iNdEx:])
-				if err != nil {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
-				}
-				if (skippy < 0) || (iNdEx+skippy) < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if (iNdEx + skippy) > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				if !options.DiscardUnknown {
-					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
-				}
-				iNdEx += skippy
-			}
-		}
-
-		if iNdEx > l {
-			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-		}
-		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
-	}
-	return &protoiface.Methods{
-		NoUnkeyedLiterals: struct{}{},
-		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
-		Size:              size,
-		Marshal:           marshal,
-		Unmarshal:         unmarshal,
-		Merge:             nil,
-		CheckInitialized:  nil,
-	}
-}
-
-var (
-	md_MsgCreatePrice         protoreflect.MessageDescriptor
-	fd_MsgCreatePrice_creator protoreflect.FieldDescriptor
-	fd_MsgCreatePrice_symbol  protoreflect.FieldDescriptor
-	fd_MsgCreatePrice_price   protoreflect.FieldDescriptor
+	md_MsgCreatePrice           protoreflect.MessageDescriptor
+	fd_MsgCreatePrice_creator   protoreflect.FieldDescriptor
+	fd_MsgCreatePrice_symbol    protoreflect.FieldDescriptor
+	fd_MsgCreatePrice_price     protoreflect.FieldDescriptor
+	fd_MsgCreatePrice_timestamp protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -1772,6 +885,7 @@ func init() {
 	fd_MsgCreatePrice_creator = md_MsgCreatePrice.Fields().ByName("creator")
 	fd_MsgCreatePrice_symbol = md_MsgCreatePrice.Fields().ByName("symbol")
 	fd_MsgCreatePrice_price = md_MsgCreatePrice.Fields().ByName("price")
+	fd_MsgCreatePrice_timestamp = md_MsgCreatePrice.Fields().ByName("timestamp")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgCreatePrice)(nil)
@@ -1783,7 +897,7 @@ func (x *MsgCreatePrice) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgCreatePrice) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[4]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1857,6 +971,12 @@ func (x *fastReflection_MsgCreatePrice) Range(f func(protoreflect.FieldDescripto
 			return
 		}
 	}
+	if x.Timestamp != int32(0) {
+		value := protoreflect.ValueOfInt32(x.Timestamp)
+		if !f(fd_MsgCreatePrice_timestamp, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -1878,6 +998,8 @@ func (x *fastReflection_MsgCreatePrice) Has(fd protoreflect.FieldDescriptor) boo
 		return x.Symbol != ""
 	case "realfin.oracle.MsgCreatePrice.price":
 		return x.Price != uint64(0)
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		return x.Timestamp != int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -1900,6 +1022,8 @@ func (x *fastReflection_MsgCreatePrice) Clear(fd protoreflect.FieldDescriptor) {
 		x.Symbol = ""
 	case "realfin.oracle.MsgCreatePrice.price":
 		x.Price = uint64(0)
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		x.Timestamp = int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -1925,6 +1049,9 @@ func (x *fastReflection_MsgCreatePrice) Get(descriptor protoreflect.FieldDescrip
 	case "realfin.oracle.MsgCreatePrice.price":
 		value := x.Price
 		return protoreflect.ValueOfUint64(value)
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		value := x.Timestamp
+		return protoreflect.ValueOfInt32(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -1951,6 +1078,8 @@ func (x *fastReflection_MsgCreatePrice) Set(fd protoreflect.FieldDescriptor, val
 		x.Symbol = value.Interface().(string)
 	case "realfin.oracle.MsgCreatePrice.price":
 		x.Price = value.Uint()
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		x.Timestamp = int32(value.Int())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -1977,6 +1106,8 @@ func (x *fastReflection_MsgCreatePrice) Mutable(fd protoreflect.FieldDescriptor)
 		panic(fmt.Errorf("field symbol of message realfin.oracle.MsgCreatePrice is not mutable"))
 	case "realfin.oracle.MsgCreatePrice.price":
 		panic(fmt.Errorf("field price of message realfin.oracle.MsgCreatePrice is not mutable"))
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		panic(fmt.Errorf("field timestamp of message realfin.oracle.MsgCreatePrice is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -1996,6 +1127,8 @@ func (x *fastReflection_MsgCreatePrice) NewField(fd protoreflect.FieldDescriptor
 		return protoreflect.ValueOfString("")
 	case "realfin.oracle.MsgCreatePrice.price":
 		return protoreflect.ValueOfUint64(uint64(0))
+	case "realfin.oracle.MsgCreatePrice.timestamp":
+		return protoreflect.ValueOfInt32(int32(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePrice"))
@@ -2076,6 +1209,9 @@ func (x *fastReflection_MsgCreatePrice) ProtoMethods() *protoiface.Methods {
 		if x.Price != 0 {
 			n += 1 + runtime.Sov(uint64(x.Price))
 		}
+		if x.Timestamp != 0 {
+			n += 1 + runtime.Sov(uint64(x.Timestamp))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -2104,6 +1240,11 @@ func (x *fastReflection_MsgCreatePrice) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Timestamp != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Timestamp))
+			i--
+			dAtA[i] = 0x20
 		}
 		if x.Price != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Price))
@@ -2256,6 +1397,25 @@ func (x *fastReflection_MsgCreatePrice) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
+			case 4:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Timestamp", wireType)
+				}
+				x.Timestamp = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Timestamp |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -2292,14 +1452,12 @@ func (x *fastReflection_MsgCreatePrice) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgCreatePriceResponse    protoreflect.MessageDescriptor
-	fd_MsgCreatePriceResponse_id protoreflect.FieldDescriptor
+	md_MsgCreatePriceResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_realfin_oracle_tx_proto_init()
 	md_MsgCreatePriceResponse = File_realfin_oracle_tx_proto.Messages().ByName("MsgCreatePriceResponse")
-	fd_MsgCreatePriceResponse_id = md_MsgCreatePriceResponse.Fields().ByName("id")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgCreatePriceResponse)(nil)
@@ -2311,7 +1469,7 @@ func (x *MsgCreatePriceResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgCreatePriceResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[5]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2367,12 +1525,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Interface() protoreflect.ProtoMe
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_MsgCreatePriceResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_MsgCreatePriceResponse_id, value) {
-			return
-		}
-	}
 }
 
 // Has reports whether a field is populated.
@@ -2388,8 +1540,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Range(f func(protoreflect.FieldD
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgCreatePriceResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		return x.Id != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2406,8 +1556,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Has(fd protoreflect.FieldDescrip
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgCreatePriceResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		x.Id = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2424,9 +1572,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Clear(fd protoreflect.FieldDescr
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgCreatePriceResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		value := x.Id
-		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2447,8 +1592,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Get(descriptor protoreflect.Fiel
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgCreatePriceResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		x.Id = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2469,8 +1612,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Set(fd protoreflect.FieldDescrip
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgCreatePriceResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		panic(fmt.Errorf("field id of message realfin.oracle.MsgCreatePriceResponse is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2484,8 +1625,6 @@ func (x *fastReflection_MsgCreatePriceResponse) Mutable(fd protoreflect.FieldDes
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgCreatePriceResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "realfin.oracle.MsgCreatePriceResponse.id":
-		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgCreatePriceResponse"))
@@ -2555,9 +1694,6 @@ func (x *fastReflection_MsgCreatePriceResponse) ProtoMethods() *protoiface.Metho
 		var n int
 		var l int
 		_ = l
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
-		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -2586,11 +1722,6 @@ func (x *fastReflection_MsgCreatePriceResponse) ProtoMethods() *protoiface.Metho
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
-		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
-			i--
-			dAtA[i] = 0x8
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -2641,25 +1772,6 @@ func (x *fastReflection_MsgCreatePriceResponse) ProtoMethods() *protoiface.Metho
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreatePriceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
-			case 1:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-				}
-				x.Id = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -2696,20 +1808,20 @@ func (x *fastReflection_MsgCreatePriceResponse) ProtoMethods() *protoiface.Metho
 }
 
 var (
-	md_MsgUpdatePrice         protoreflect.MessageDescriptor
-	fd_MsgUpdatePrice_creator protoreflect.FieldDescriptor
-	fd_MsgUpdatePrice_id      protoreflect.FieldDescriptor
-	fd_MsgUpdatePrice_symbol  protoreflect.FieldDescriptor
-	fd_MsgUpdatePrice_price   protoreflect.FieldDescriptor
+	md_MsgUpdatePrice           protoreflect.MessageDescriptor
+	fd_MsgUpdatePrice_creator   protoreflect.FieldDescriptor
+	fd_MsgUpdatePrice_symbol    protoreflect.FieldDescriptor
+	fd_MsgUpdatePrice_price     protoreflect.FieldDescriptor
+	fd_MsgUpdatePrice_timestamp protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_realfin_oracle_tx_proto_init()
 	md_MsgUpdatePrice = File_realfin_oracle_tx_proto.Messages().ByName("MsgUpdatePrice")
 	fd_MsgUpdatePrice_creator = md_MsgUpdatePrice.Fields().ByName("creator")
-	fd_MsgUpdatePrice_id = md_MsgUpdatePrice.Fields().ByName("id")
 	fd_MsgUpdatePrice_symbol = md_MsgUpdatePrice.Fields().ByName("symbol")
 	fd_MsgUpdatePrice_price = md_MsgUpdatePrice.Fields().ByName("price")
+	fd_MsgUpdatePrice_timestamp = md_MsgUpdatePrice.Fields().ByName("timestamp")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgUpdatePrice)(nil)
@@ -2721,7 +1833,7 @@ func (x *MsgUpdatePrice) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUpdatePrice) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[6]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2783,12 +1895,6 @@ func (x *fastReflection_MsgUpdatePrice) Range(f func(protoreflect.FieldDescripto
 			return
 		}
 	}
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_MsgUpdatePrice_id, value) {
-			return
-		}
-	}
 	if x.Symbol != "" {
 		value := protoreflect.ValueOfString(x.Symbol)
 		if !f(fd_MsgUpdatePrice_symbol, value) {
@@ -2798,6 +1904,12 @@ func (x *fastReflection_MsgUpdatePrice) Range(f func(protoreflect.FieldDescripto
 	if x.Price != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.Price)
 		if !f(fd_MsgUpdatePrice_price, value) {
+			return
+		}
+	}
+	if x.Timestamp != int32(0) {
+		value := protoreflect.ValueOfInt32(x.Timestamp)
+		if !f(fd_MsgUpdatePrice_timestamp, value) {
 			return
 		}
 	}
@@ -2818,12 +1930,12 @@ func (x *fastReflection_MsgUpdatePrice) Has(fd protoreflect.FieldDescriptor) boo
 	switch fd.FullName() {
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		return x.Creator != ""
-	case "realfin.oracle.MsgUpdatePrice.id":
-		return x.Id != uint64(0)
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		return x.Symbol != ""
 	case "realfin.oracle.MsgUpdatePrice.price":
 		return x.Price != uint64(0)
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		return x.Timestamp != int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -2842,12 +1954,12 @@ func (x *fastReflection_MsgUpdatePrice) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		x.Creator = ""
-	case "realfin.oracle.MsgUpdatePrice.id":
-		x.Id = uint64(0)
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		x.Symbol = ""
 	case "realfin.oracle.MsgUpdatePrice.price":
 		x.Price = uint64(0)
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		x.Timestamp = int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -2867,15 +1979,15 @@ func (x *fastReflection_MsgUpdatePrice) Get(descriptor protoreflect.FieldDescrip
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
-	case "realfin.oracle.MsgUpdatePrice.id":
-		value := x.Id
-		return protoreflect.ValueOfUint64(value)
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		value := x.Symbol
 		return protoreflect.ValueOfString(value)
 	case "realfin.oracle.MsgUpdatePrice.price":
 		value := x.Price
 		return protoreflect.ValueOfUint64(value)
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		value := x.Timestamp
+		return protoreflect.ValueOfInt32(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -2898,12 +2010,12 @@ func (x *fastReflection_MsgUpdatePrice) Set(fd protoreflect.FieldDescriptor, val
 	switch fd.FullName() {
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		x.Creator = value.Interface().(string)
-	case "realfin.oracle.MsgUpdatePrice.id":
-		x.Id = value.Uint()
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		x.Symbol = value.Interface().(string)
 	case "realfin.oracle.MsgUpdatePrice.price":
 		x.Price = value.Uint()
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		x.Timestamp = int32(value.Int())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -2926,12 +2038,12 @@ func (x *fastReflection_MsgUpdatePrice) Mutable(fd protoreflect.FieldDescriptor)
 	switch fd.FullName() {
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		panic(fmt.Errorf("field creator of message realfin.oracle.MsgUpdatePrice is not mutable"))
-	case "realfin.oracle.MsgUpdatePrice.id":
-		panic(fmt.Errorf("field id of message realfin.oracle.MsgUpdatePrice is not mutable"))
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		panic(fmt.Errorf("field symbol of message realfin.oracle.MsgUpdatePrice is not mutable"))
 	case "realfin.oracle.MsgUpdatePrice.price":
 		panic(fmt.Errorf("field price of message realfin.oracle.MsgUpdatePrice is not mutable"))
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		panic(fmt.Errorf("field timestamp of message realfin.oracle.MsgUpdatePrice is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -2947,12 +2059,12 @@ func (x *fastReflection_MsgUpdatePrice) NewField(fd protoreflect.FieldDescriptor
 	switch fd.FullName() {
 	case "realfin.oracle.MsgUpdatePrice.creator":
 		return protoreflect.ValueOfString("")
-	case "realfin.oracle.MsgUpdatePrice.id":
-		return protoreflect.ValueOfUint64(uint64(0))
 	case "realfin.oracle.MsgUpdatePrice.symbol":
 		return protoreflect.ValueOfString("")
 	case "realfin.oracle.MsgUpdatePrice.price":
 		return protoreflect.ValueOfUint64(uint64(0))
+	case "realfin.oracle.MsgUpdatePrice.timestamp":
+		return protoreflect.ValueOfInt32(int32(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgUpdatePrice"))
@@ -3026,15 +2138,15 @@ func (x *fastReflection_MsgUpdatePrice) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
-		}
 		l = len(x.Symbol)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.Price != 0 {
 			n += 1 + runtime.Sov(uint64(x.Price))
+		}
+		if x.Timestamp != 0 {
+			n += 1 + runtime.Sov(uint64(x.Timestamp))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -3065,22 +2177,22 @@ func (x *fastReflection_MsgUpdatePrice) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
+		if x.Timestamp != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Timestamp))
+			i--
+			dAtA[i] = 0x20
+		}
 		if x.Price != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Price))
 			i--
-			dAtA[i] = 0x20
+			dAtA[i] = 0x18
 		}
 		if len(x.Symbol) > 0 {
 			i -= len(x.Symbol)
 			copy(dAtA[i:], x.Symbol)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Symbol)))
 			i--
-			dAtA[i] = 0x1a
-		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
-			i--
-			dAtA[i] = 0x10
+			dAtA[i] = 0x12
 		}
 		if len(x.Creator) > 0 {
 			i -= len(x.Creator)
@@ -3171,25 +2283,6 @@ func (x *fastReflection_MsgUpdatePrice) ProtoMethods() *protoiface.Methods {
 				x.Creator = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 2:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-				}
-				x.Id = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 3:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
 				}
@@ -3221,7 +2314,7 @@ func (x *fastReflection_MsgUpdatePrice) ProtoMethods() *protoiface.Methods {
 				}
 				x.Symbol = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 4:
+			case 3:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Price", wireType)
 				}
@@ -3236,6 +2329,25 @@ func (x *fastReflection_MsgUpdatePrice) ProtoMethods() *protoiface.Methods {
 					b := dAtA[iNdEx]
 					iNdEx++
 					x.Price |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 4:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Timestamp", wireType)
+				}
+				x.Timestamp = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Timestamp |= int32(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -3293,7 +2405,7 @@ func (x *MsgUpdatePriceResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUpdatePriceResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[7]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3634,14 +2746,14 @@ func (x *fastReflection_MsgUpdatePriceResponse) ProtoMethods() *protoiface.Metho
 var (
 	md_MsgDeletePrice         protoreflect.MessageDescriptor
 	fd_MsgDeletePrice_creator protoreflect.FieldDescriptor
-	fd_MsgDeletePrice_id      protoreflect.FieldDescriptor
+	fd_MsgDeletePrice_symbol  protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_realfin_oracle_tx_proto_init()
 	md_MsgDeletePrice = File_realfin_oracle_tx_proto.Messages().ByName("MsgDeletePrice")
 	fd_MsgDeletePrice_creator = md_MsgDeletePrice.Fields().ByName("creator")
-	fd_MsgDeletePrice_id = md_MsgDeletePrice.Fields().ByName("id")
+	fd_MsgDeletePrice_symbol = md_MsgDeletePrice.Fields().ByName("symbol")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgDeletePrice)(nil)
@@ -3653,7 +2765,7 @@ func (x *MsgDeletePrice) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgDeletePrice) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[8]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3715,9 +2827,9 @@ func (x *fastReflection_MsgDeletePrice) Range(f func(protoreflect.FieldDescripto
 			return
 		}
 	}
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_MsgDeletePrice_id, value) {
+	if x.Symbol != "" {
+		value := protoreflect.ValueOfString(x.Symbol)
+		if !f(fd_MsgDeletePrice_symbol, value) {
 			return
 		}
 	}
@@ -3738,8 +2850,8 @@ func (x *fastReflection_MsgDeletePrice) Has(fd protoreflect.FieldDescriptor) boo
 	switch fd.FullName() {
 	case "realfin.oracle.MsgDeletePrice.creator":
 		return x.Creator != ""
-	case "realfin.oracle.MsgDeletePrice.id":
-		return x.Id != uint64(0)
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		return x.Symbol != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3758,8 +2870,8 @@ func (x *fastReflection_MsgDeletePrice) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "realfin.oracle.MsgDeletePrice.creator":
 		x.Creator = ""
-	case "realfin.oracle.MsgDeletePrice.id":
-		x.Id = uint64(0)
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		x.Symbol = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3779,9 +2891,9 @@ func (x *fastReflection_MsgDeletePrice) Get(descriptor protoreflect.FieldDescrip
 	case "realfin.oracle.MsgDeletePrice.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
-	case "realfin.oracle.MsgDeletePrice.id":
-		value := x.Id
-		return protoreflect.ValueOfUint64(value)
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		value := x.Symbol
+		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3804,8 +2916,8 @@ func (x *fastReflection_MsgDeletePrice) Set(fd protoreflect.FieldDescriptor, val
 	switch fd.FullName() {
 	case "realfin.oracle.MsgDeletePrice.creator":
 		x.Creator = value.Interface().(string)
-	case "realfin.oracle.MsgDeletePrice.id":
-		x.Id = value.Uint()
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		x.Symbol = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3828,8 +2940,8 @@ func (x *fastReflection_MsgDeletePrice) Mutable(fd protoreflect.FieldDescriptor)
 	switch fd.FullName() {
 	case "realfin.oracle.MsgDeletePrice.creator":
 		panic(fmt.Errorf("field creator of message realfin.oracle.MsgDeletePrice is not mutable"))
-	case "realfin.oracle.MsgDeletePrice.id":
-		panic(fmt.Errorf("field id of message realfin.oracle.MsgDeletePrice is not mutable"))
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		panic(fmt.Errorf("field symbol of message realfin.oracle.MsgDeletePrice is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3845,8 +2957,8 @@ func (x *fastReflection_MsgDeletePrice) NewField(fd protoreflect.FieldDescriptor
 	switch fd.FullName() {
 	case "realfin.oracle.MsgDeletePrice.creator":
 		return protoreflect.ValueOfString("")
-	case "realfin.oracle.MsgDeletePrice.id":
-		return protoreflect.ValueOfUint64(uint64(0))
+	case "realfin.oracle.MsgDeletePrice.symbol":
+		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.MsgDeletePrice"))
@@ -3920,8 +3032,9 @@ func (x *fastReflection_MsgDeletePrice) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
+		l = len(x.Symbol)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -3952,10 +3065,12 @@ func (x *fastReflection_MsgDeletePrice) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
+		if len(x.Symbol) > 0 {
+			i -= len(x.Symbol)
+			copy(dAtA[i:], x.Symbol)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Symbol)))
 			i--
-			dAtA[i] = 0x10
+			dAtA[i] = 0x12
 		}
 		if len(x.Creator) > 0 {
 			i -= len(x.Creator)
@@ -4046,10 +3161,10 @@ func (x *fastReflection_MsgDeletePrice) ProtoMethods() *protoiface.Methods {
 				x.Creator = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 2:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
 				}
-				x.Id = 0
+				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -4059,11 +3174,24 @@ func (x *fastReflection_MsgDeletePrice) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
+					stringLen |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Symbol = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -4117,7 +3245,7 @@ func (x *MsgDeletePriceResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgDeletePriceResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_realfin_oracle_tx_proto_msgTypes[9]
+	mi := &file_realfin_oracle_tx_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4542,97 +3670,21 @@ func (*MsgUpdateParamsResponse) Descriptor() ([]byte, []int) {
 	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{1}
 }
 
-type MsgSubmitPrice struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Symbol  string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Price   uint64 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
-}
-
-func (x *MsgSubmitPrice) Reset() {
-	*x = MsgSubmitPrice{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MsgSubmitPrice) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MsgSubmitPrice) ProtoMessage() {}
-
-// Deprecated: Use MsgSubmitPrice.ProtoReflect.Descriptor instead.
-func (*MsgSubmitPrice) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *MsgSubmitPrice) GetCreator() string {
-	if x != nil {
-		return x.Creator
-	}
-	return ""
-}
-
-func (x *MsgSubmitPrice) GetSymbol() string {
-	if x != nil {
-		return x.Symbol
-	}
-	return ""
-}
-
-func (x *MsgSubmitPrice) GetPrice() uint64 {
-	if x != nil {
-		return x.Price
-	}
-	return 0
-}
-
-type MsgSubmitPriceResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *MsgSubmitPriceResponse) Reset() {
-	*x = MsgSubmitPriceResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MsgSubmitPriceResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MsgSubmitPriceResponse) ProtoMessage() {}
-
-// Deprecated: Use MsgSubmitPriceResponse.ProtoReflect.Descriptor instead.
-func (*MsgSubmitPriceResponse) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{3}
-}
-
 type MsgCreatePrice struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Symbol  string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Price   uint64 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Creator   string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Symbol    string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Price     uint64 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Timestamp int32  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 }
 
 func (x *MsgCreatePrice) Reset() {
 	*x = MsgCreatePrice{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[4]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4646,7 +3698,7 @@ func (*MsgCreatePrice) ProtoMessage() {}
 
 // Deprecated: Use MsgCreatePrice.ProtoReflect.Descriptor instead.
 func (*MsgCreatePrice) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{4}
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *MsgCreatePrice) GetCreator() string {
@@ -4670,18 +3722,23 @@ func (x *MsgCreatePrice) GetPrice() uint64 {
 	return 0
 }
 
+func (x *MsgCreatePrice) GetTimestamp() int32 {
+	if x != nil {
+		return x.Timestamp
+	}
+	return 0
+}
+
 type MsgCreatePriceResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (x *MsgCreatePriceResponse) Reset() {
 	*x = MsgCreatePriceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[5]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4695,14 +3752,7 @@ func (*MsgCreatePriceResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgCreatePriceResponse.ProtoReflect.Descriptor instead.
 func (*MsgCreatePriceResponse) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *MsgCreatePriceResponse) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{3}
 }
 
 type MsgUpdatePrice struct {
@@ -4710,16 +3760,16 @@ type MsgUpdatePrice struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	Symbol  string `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Price   uint64 `protobuf:"varint,4,opt,name=price,proto3" json:"price,omitempty"`
+	Creator   string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Symbol    string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Price     uint64 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Timestamp int32  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 }
 
 func (x *MsgUpdatePrice) Reset() {
 	*x = MsgUpdatePrice{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[6]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4733,7 +3783,7 @@ func (*MsgUpdatePrice) ProtoMessage() {}
 
 // Deprecated: Use MsgUpdatePrice.ProtoReflect.Descriptor instead.
 func (*MsgUpdatePrice) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{6}
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MsgUpdatePrice) GetCreator() string {
@@ -4741,13 +3791,6 @@ func (x *MsgUpdatePrice) GetCreator() string {
 		return x.Creator
 	}
 	return ""
-}
-
-func (x *MsgUpdatePrice) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
 }
 
 func (x *MsgUpdatePrice) GetSymbol() string {
@@ -4764,6 +3807,13 @@ func (x *MsgUpdatePrice) GetPrice() uint64 {
 	return 0
 }
 
+func (x *MsgUpdatePrice) GetTimestamp() int32 {
+	if x != nil {
+		return x.Timestamp
+	}
+	return 0
+}
+
 type MsgUpdatePriceResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4773,7 +3823,7 @@ type MsgUpdatePriceResponse struct {
 func (x *MsgUpdatePriceResponse) Reset() {
 	*x = MsgUpdatePriceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[7]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4787,7 +3837,7 @@ func (*MsgUpdatePriceResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgUpdatePriceResponse.ProtoReflect.Descriptor instead.
 func (*MsgUpdatePriceResponse) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{7}
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{5}
 }
 
 type MsgDeletePrice struct {
@@ -4796,13 +3846,13 @@ type MsgDeletePrice struct {
 	unknownFields protoimpl.UnknownFields
 
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Symbol  string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
 }
 
 func (x *MsgDeletePrice) Reset() {
 	*x = MsgDeletePrice{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[8]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4816,7 +3866,7 @@ func (*MsgDeletePrice) ProtoMessage() {}
 
 // Deprecated: Use MsgDeletePrice.ProtoReflect.Descriptor instead.
 func (*MsgDeletePrice) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{8}
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *MsgDeletePrice) GetCreator() string {
@@ -4826,11 +3876,11 @@ func (x *MsgDeletePrice) GetCreator() string {
 	return ""
 }
 
-func (x *MsgDeletePrice) GetId() uint64 {
+func (x *MsgDeletePrice) GetSymbol() string {
 	if x != nil {
-		return x.Id
+		return x.Symbol
 	}
-	return 0
+	return ""
 }
 
 type MsgDeletePriceResponse struct {
@@ -4842,7 +3892,7 @@ type MsgDeletePriceResponse struct {
 func (x *MsgDeletePriceResponse) Reset() {
 	*x = MsgDeletePriceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_realfin_oracle_tx_proto_msgTypes[9]
+		mi := &file_realfin_oracle_tx_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4856,7 +3906,7 @@ func (*MsgDeletePriceResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgDeletePriceResponse.ProtoReflect.Descriptor instead.
 func (*MsgDeletePriceResponse) Descriptor() ([]byte, []int) {
-	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{9}
+	return file_realfin_oracle_tx_proto_rawDescGZIP(), []int{7}
 }
 
 var File_realfin_oracle_tx_proto protoreflect.FileDescriptor
@@ -4887,78 +3937,66 @@ var file_realfin_oracle_tx_proto_rawDesc = []byte{
 	0x69, 0x6e, 0x2f, 0x78, 0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2f, 0x4d, 0x73, 0x67, 0x55,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x4d,
 	0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x66, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62,
-	0x6d, 0x69, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61,
-	0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x6f, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72,
-	0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65,
-	0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18,
-	0x0a, 0x16, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x66, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x43,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x84, 0x01, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x6f, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x70,
+	0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63,
+	0x65, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x3a,
+	0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18, 0x0a,
+	0x16, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x84, 0x01, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72,
 	0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65,
 	0x61, 0x74, 0x6f, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14, 0x0a, 0x05,
 	0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70, 0x72, 0x69,
-	0x63, 0x65, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72,
-	0x22, 0x28, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69,
-	0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x76, 0x0a, 0x0e, 0x4d, 0x73,
-	0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07,
-	0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63,
-	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x12, 0x14,
-	0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x70,
-	0x72, 0x69, 0x63, 0x65, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x6f, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
-	0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x48, 0x0a, 0x0e,
-	0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18,
-	0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63,
-	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x32, 0xc2, 0x03, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x58, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x1f, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66,
-	0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x27, 0x2e, 0x72, 0x65, 0x61, 0x6c,
-	0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x72, 0x69, 0x63,
-	0x65, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x72, 0x69, 0x63,
-	0x65, 0x1a, 0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x72, 0x69, 0x63,
-	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66,
-	0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x1a, 0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66,
-	0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x55, 0x0a, 0x0b, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12,
-	0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
-	0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x1a,
-	0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
-	0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e,
-	0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x1a, 0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e,
-	0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05,
-	0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x92, 0x01, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e, 0x72, 0x65,
-	0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x42, 0x07, 0x54, 0x78,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e,
-	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72, 0x61,
-	0x63, 0x6c, 0x65, 0xa2, 0x02, 0x03, 0x52, 0x4f, 0x58, 0xaa, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c,
-	0x66, 0x69, 0x6e, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xca, 0x02, 0x0e, 0x52, 0x65, 0x61,
-	0x6c, 0x66, 0x69, 0x6e, 0x5c, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xe2, 0x02, 0x1a, 0x52, 0x65,
-	0x61, 0x6c, 0x66, 0x69, 0x6e, 0x5c, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5c, 0x47, 0x50, 0x42,
-	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x52, 0x65, 0x61, 0x6c, 0x66,
-	0x69, 0x6e, 0x3a, 0x3a, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x63, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+	0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18,
+	0x0a, 0x16, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x50, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x6f, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x3a, 0x0c, 0x82, 0xe7,
+	0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d, 0x73,
+	0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x32, 0xeb, 0x02, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x58, 0x0a, 0x0c,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x1f, 0x2e, 0x72,
+	0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73,
+	0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x27, 0x2e,
+	0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d,
+	0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e,
+	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x50, 0x72, 0x69, 0x63, 0x65, 0x1a, 0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e,
+	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a,
+	0x0b, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1e, 0x2e, 0x72,
+	0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73,
+	0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x1a, 0x26, 0x2e, 0x72,
+	0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73,
+	0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72,
+	0x69, 0x63, 0x65, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72,
+	0x69, 0x63, 0x65, 0x1a, 0x26, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72,
+	0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0,
+	0x2a, 0x01, 0x42, 0x92, 0x01, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66,
+	0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f,
+	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x61, 0x70,
+	0x69, 0x2f, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
+	0xa2, 0x02, 0x03, 0x52, 0x4f, 0x58, 0xaa, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e,
+	0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xca, 0x02, 0x0e, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69,
+	0x6e, 0x5c, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0xe2, 0x02, 0x1a, 0x52, 0x65, 0x61, 0x6c, 0x66,
+	0x69, 0x6e, 0x5c, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x52, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x3a,
+	0x3a, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4973,37 +4011,33 @@ func file_realfin_oracle_tx_proto_rawDescGZIP() []byte {
 	return file_realfin_oracle_tx_proto_rawDescData
 }
 
-var file_realfin_oracle_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_realfin_oracle_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_realfin_oracle_tx_proto_goTypes = []interface{}{
 	(*MsgUpdateParams)(nil),         // 0: realfin.oracle.MsgUpdateParams
 	(*MsgUpdateParamsResponse)(nil), // 1: realfin.oracle.MsgUpdateParamsResponse
-	(*MsgSubmitPrice)(nil),          // 2: realfin.oracle.MsgSubmitPrice
-	(*MsgSubmitPriceResponse)(nil),  // 3: realfin.oracle.MsgSubmitPriceResponse
-	(*MsgCreatePrice)(nil),          // 4: realfin.oracle.MsgCreatePrice
-	(*MsgCreatePriceResponse)(nil),  // 5: realfin.oracle.MsgCreatePriceResponse
-	(*MsgUpdatePrice)(nil),          // 6: realfin.oracle.MsgUpdatePrice
-	(*MsgUpdatePriceResponse)(nil),  // 7: realfin.oracle.MsgUpdatePriceResponse
-	(*MsgDeletePrice)(nil),          // 8: realfin.oracle.MsgDeletePrice
-	(*MsgDeletePriceResponse)(nil),  // 9: realfin.oracle.MsgDeletePriceResponse
-	(*Params)(nil),                  // 10: realfin.oracle.Params
+	(*MsgCreatePrice)(nil),          // 2: realfin.oracle.MsgCreatePrice
+	(*MsgCreatePriceResponse)(nil),  // 3: realfin.oracle.MsgCreatePriceResponse
+	(*MsgUpdatePrice)(nil),          // 4: realfin.oracle.MsgUpdatePrice
+	(*MsgUpdatePriceResponse)(nil),  // 5: realfin.oracle.MsgUpdatePriceResponse
+	(*MsgDeletePrice)(nil),          // 6: realfin.oracle.MsgDeletePrice
+	(*MsgDeletePriceResponse)(nil),  // 7: realfin.oracle.MsgDeletePriceResponse
+	(*Params)(nil),                  // 8: realfin.oracle.Params
 }
 var file_realfin_oracle_tx_proto_depIdxs = []int32{
-	10, // 0: realfin.oracle.MsgUpdateParams.params:type_name -> realfin.oracle.Params
-	0,  // 1: realfin.oracle.Msg.UpdateParams:input_type -> realfin.oracle.MsgUpdateParams
-	2,  // 2: realfin.oracle.Msg.SubmitPrice:input_type -> realfin.oracle.MsgSubmitPrice
-	4,  // 3: realfin.oracle.Msg.CreatePrice:input_type -> realfin.oracle.MsgCreatePrice
-	6,  // 4: realfin.oracle.Msg.UpdatePrice:input_type -> realfin.oracle.MsgUpdatePrice
-	8,  // 5: realfin.oracle.Msg.DeletePrice:input_type -> realfin.oracle.MsgDeletePrice
-	1,  // 6: realfin.oracle.Msg.UpdateParams:output_type -> realfin.oracle.MsgUpdateParamsResponse
-	3,  // 7: realfin.oracle.Msg.SubmitPrice:output_type -> realfin.oracle.MsgSubmitPriceResponse
-	5,  // 8: realfin.oracle.Msg.CreatePrice:output_type -> realfin.oracle.MsgCreatePriceResponse
-	7,  // 9: realfin.oracle.Msg.UpdatePrice:output_type -> realfin.oracle.MsgUpdatePriceResponse
-	9,  // 10: realfin.oracle.Msg.DeletePrice:output_type -> realfin.oracle.MsgDeletePriceResponse
-	6,  // [6:11] is the sub-list for method output_type
-	1,  // [1:6] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	8, // 0: realfin.oracle.MsgUpdateParams.params:type_name -> realfin.oracle.Params
+	0, // 1: realfin.oracle.Msg.UpdateParams:input_type -> realfin.oracle.MsgUpdateParams
+	2, // 2: realfin.oracle.Msg.CreatePrice:input_type -> realfin.oracle.MsgCreatePrice
+	4, // 3: realfin.oracle.Msg.UpdatePrice:input_type -> realfin.oracle.MsgUpdatePrice
+	6, // 4: realfin.oracle.Msg.DeletePrice:input_type -> realfin.oracle.MsgDeletePrice
+	1, // 5: realfin.oracle.Msg.UpdateParams:output_type -> realfin.oracle.MsgUpdateParamsResponse
+	3, // 6: realfin.oracle.Msg.CreatePrice:output_type -> realfin.oracle.MsgCreatePriceResponse
+	5, // 7: realfin.oracle.Msg.UpdatePrice:output_type -> realfin.oracle.MsgUpdatePriceResponse
+	7, // 8: realfin.oracle.Msg.DeletePrice:output_type -> realfin.oracle.MsgDeletePriceResponse
+	5, // [5:9] is the sub-list for method output_type
+	1, // [1:5] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_realfin_oracle_tx_proto_init() }
@@ -5039,30 +4073,6 @@ func file_realfin_oracle_tx_proto_init() {
 			}
 		}
 		file_realfin_oracle_tx_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgSubmitPrice); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_realfin_oracle_tx_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgSubmitPriceResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_realfin_oracle_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgCreatePrice); i {
 			case 0:
 				return &v.state
@@ -5074,7 +4084,7 @@ func file_realfin_oracle_tx_proto_init() {
 				return nil
 			}
 		}
-		file_realfin_oracle_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_realfin_oracle_tx_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgCreatePriceResponse); i {
 			case 0:
 				return &v.state
@@ -5086,7 +4096,7 @@ func file_realfin_oracle_tx_proto_init() {
 				return nil
 			}
 		}
-		file_realfin_oracle_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_realfin_oracle_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUpdatePrice); i {
 			case 0:
 				return &v.state
@@ -5098,7 +4108,7 @@ func file_realfin_oracle_tx_proto_init() {
 				return nil
 			}
 		}
-		file_realfin_oracle_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_realfin_oracle_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUpdatePriceResponse); i {
 			case 0:
 				return &v.state
@@ -5110,7 +4120,7 @@ func file_realfin_oracle_tx_proto_init() {
 				return nil
 			}
 		}
-		file_realfin_oracle_tx_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_realfin_oracle_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgDeletePrice); i {
 			case 0:
 				return &v.state
@@ -5122,7 +4132,7 @@ func file_realfin_oracle_tx_proto_init() {
 				return nil
 			}
 		}
-		file_realfin_oracle_tx_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_realfin_oracle_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgDeletePriceResponse); i {
 			case 0:
 				return &v.state
@@ -5141,7 +4151,7 @@ func file_realfin_oracle_tx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_realfin_oracle_tx_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

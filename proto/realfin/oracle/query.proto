@@ -22,7 +22,7 @@ service Query {
   
   // Queries a list of Price items.
   rpc Price    (QueryGetPriceRequest) returns (QueryGetPriceResponse) {
-    option (google.api.http).get = "/realfin/oracle/price/{id}";
+    option (google.api.http).get = "/realfin/oracle/price/{symbol}";
   
   }
   rpc PriceAll (QueryAllPriceRequest) returns (QueryAllPriceResponse) {
@@ -41,11 +41,11 @@ message QueryParamsResponse {
 }
 
 message QueryGetPriceRequest {
-  uint64 id = 1;
+  string symbol = 1;
 }
 
 message QueryGetPriceResponse {
-  Price Price = 1 [(gogoproto.nullable) = false];
+  Price price = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllPriceRequest {
@@ -53,7 +53,7 @@ message QueryAllPriceRequest {
 }
 
 message QueryAllPriceResponse {
-  repeated Price                                  Price      = 1 [(gogoproto.nullable) = false];
+  repeated Price                                  price      = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

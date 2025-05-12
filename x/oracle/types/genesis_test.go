@@ -25,13 +25,12 @@ func TestGenesisState_Validate(t *testing.T) {
 
 				PriceList: []types.Price{
 					{
-						Id: 0,
+						Symbol: "0",
 					},
 					{
-						Id: 1,
+						Symbol: "1",
 					},
 				},
-				PriceCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -41,24 +40,12 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				PriceList: []types.Price{
 					{
-						Id: 0,
+						Symbol: "0",
 					},
 					{
-						Id: 0,
+						Symbol: "0",
 					},
 				},
-			},
-			valid: false,
-		},
-		{
-			desc: "invalid price count",
-			genState: &types.GenesisState{
-				PriceList: []types.Price{
-					{
-						Id: 1,
-					},
-				},
-				PriceCount: 0,
 			},
 			valid: false,
 		},

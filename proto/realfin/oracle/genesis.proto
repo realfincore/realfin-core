@@ -13,8 +13,7 @@ option go_package = "realfin/x/oracle/types";
 message GenesisState {
   
   // params defines all the parameters of the module.
-           Params params     = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
-  repeated Price  priceList  = 2 [(gogoproto.nullable) = false] ;
-           uint64 priceCount = 3;
+           Params params    = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+  repeated Price  priceList = 2 [(gogoproto.nullable) = false] ;
 }
 

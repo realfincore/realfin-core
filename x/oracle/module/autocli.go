@@ -25,8 +25,8 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod:      "Price",
 					Use:            "show-price [id]",
-					Short:          "Shows a price by id",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+					Short:          "Shows a price",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}},
 				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
@@ -40,28 +40,22 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Skip:      true, // skipped because authority gated
 				},
 				{
-					RpcMethod:      "SubmitPrice",
-					Use:            "submit-price [symbol] [price]",
-					Short:          "Send a submit-price tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}, {ProtoField: "price"}},
-				},
-				{
 					RpcMethod:      "CreatePrice",
-					Use:            "create-price [symbol] [price]",
-					Short:          "Create price",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}, {ProtoField: "price"}},
+					Use:            "create-price [symbol] [price] [timestamp]",
+					Short:          "Create a new price",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}, {ProtoField: "price"}, {ProtoField: "timestamp"}},
 				},
 				{
 					RpcMethod:      "UpdatePrice",
-					Use:            "update-price [id] [symbol] [price]",
+					Use:            "update-price [symbol] [price] [timestamp]",
 					Short:          "Update price",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "symbol"}, {ProtoField: "price"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}, {ProtoField: "price"}, {ProtoField: "timestamp"}},
 				},
 				{
 					RpcMethod:      "DeletePrice",
-					Use:            "delete-price [id]",
+					Use:            "delete-price [symbol]",
 					Short:          "Delete price",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

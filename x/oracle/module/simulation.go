@@ -23,10 +23,6 @@ var (
 )
 
 const (
-	opWeightMsgSubmitPrice = "op_weight_msg_submit_price"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgSubmitPrice int = 100
-
 	opWeightMsgCreatePrice = "op_weight_msg_price"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreatePrice int = 100
@@ -52,15 +48,14 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		Params: types.DefaultParams(),
 		PriceList: []types.Price{
 			{
-				Id:      0,
 				Creator: sample.AccAddress(),
+				Symbol:  "0",
 			},
 			{
-				Id:      1,
 				Creator: sample.AccAddress(),
+				Symbol:  "1",
 			},
 		},
-		PriceCount: 2,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&oracleGenesis)
@@ -72,17 +67,6 @@ func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
-
-	var weightMsgSubmitPrice int
-	simState.AppParams.GetOrGenerate(opWeightMsgSubmitPrice, &weightMsgSubmitPrice, nil,
-		func(_ *rand.Rand) {
-			weightMsgSubmitPrice = defaultWeightMsgSubmitPrice
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSubmitPrice,
-		oraclesimulation.SimulateMsgSubmitPrice(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
 
 	var weightMsgCreatePrice int
 	simState.AppParams.GetOrGenerate(opWeightMsgCreatePrice, &weightMsgCreatePrice, nil,
@@ -125,14 +109,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
 	return []simtypes.WeightedProposalMsg{
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgSubmitPrice,
-			defaultWeightMsgSubmitPrice,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				oraclesimulation.SimulateMsgSubmitPrice(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
 		simulation.NewWeightedProposalMsg(
 			opWeightMsgCreatePrice,
 			defaultWeightMsgCreatePrice,

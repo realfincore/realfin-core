@@ -17,13 +17,12 @@ func TestGenesis(t *testing.T) {
 
 		PriceList: []types.Price{
 			{
-				Id: 0,
+				Symbol: "0",
 			},
 			{
-				Id: 1,
+				Symbol: "1",
 			},
 		},
-		PriceCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -36,6 +35,5 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.ElementsMatch(t, genesisState.PriceList, got.PriceList)
-	require.Equal(t, genesisState.PriceCount, got.PriceCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

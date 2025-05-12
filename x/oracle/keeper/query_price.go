@@ -7,7 +7,6 @@ import (
 
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -21,7 +20,7 @@ func (k Keeper) PriceAll(ctx context.Context, req *types.QueryAllPriceRequest) (
 	var prices []types.Price
 
 	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	priceStore := prefix.NewStore(store, types.KeyPrefix(types.PriceKey))
+	priceStore := prefix.NewStore(store, types.KeyPrefix(types.PriceKeyPrefix))
 
 	pageRes, err := query.Paginate(priceStore, req.Pagination, func(key []byte, value []byte) error {
 		var price types.Price
@@ -45,10 +44,13 @@ func (k Keeper) Price(ctx context.Context, req *types.QueryGetPriceRequest) (*ty
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	price, found := k.GetPrice(ctx, req.Id)
+	val, found := k.GetPrice(
+		ctx,
+		req.Symbol,
+	)
 	if !found {
-		return nil, sdkerrors.ErrKeyNotFound
+		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetPriceResponse{Price: price}, nil
+	return &types.QueryGetPriceResponse{Price: val}, nil
 }

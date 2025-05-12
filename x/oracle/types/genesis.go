@@ -19,17 +19,15 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	// Check for duplicated ID in price
-	priceIdMap := make(map[uint64]bool)
-	priceCount := gs.GetPriceCount()
+	// Check for duplicated index in price
+	priceIndexMap := make(map[string]struct{})
+
 	for _, elem := range gs.PriceList {
-		if _, ok := priceIdMap[elem.Id]; ok {
-			return fmt.Errorf("duplicated id for price")
+		index := string(PriceKey(elem.Symbol))
+		if _, ok := priceIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for price")
 		}
-		if elem.Id >= priceCount {
-			return fmt.Errorf("price id should be lower or equal than the last id")
-		}
-		priceIdMap[elem.Id] = true
+		priceIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

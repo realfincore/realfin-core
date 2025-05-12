@@ -2,6 +2,7 @@ package simulation
 
 import (
 	"math/rand"
+	"strconv"
 
 	"realfin/x/oracle/keeper"
 	"realfin/x/oracle/types"
@@ -13,6 +14,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 )
 
+// Prevent strconv unused error
+var _ = strconv.IntSize
+
 func SimulateMsgCreatePrice(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
@@ -22,8 +26,15 @@ func SimulateMsgCreatePrice(
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
 
+		i := r.Int()
 		msg := &types.MsgCreatePrice{
 			Creator: simAccount.Address.String(),
+			Symbol:  strconv.Itoa(i),
+		}
+
+		_, found := k.GetPrice(ctx, msg.Symbol)
+		if found {
+			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "Price already exist"), nil, nil
 		}
 
 		txCtx := simulation.OperationInput{
@@ -68,7 +79,8 @@ func SimulateMsgUpdatePrice(
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "price creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = price.Id
+
+		msg.Symbol = price.Symbol
 
 		txCtx := simulation.OperationInput{
 			R:               r,
@@ -97,7 +109,7 @@ func SimulateMsgDeletePrice(
 		var (
 			simAccount = simtypes.Account{}
 			price      = types.Price{}
-			msg        = &types.MsgDeletePrice{}
+			msg        = &types.MsgUpdatePrice{}
 			allPrice   = k.GetAllPrice(ctx)
 			found      = false
 		)
@@ -112,7 +124,8 @@ func SimulateMsgDeletePrice(
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "price creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = price.Id
+
+		msg.Symbol = price.Symbol
 
 		txCtx := simulation.OperationInput{
 			R:               r,

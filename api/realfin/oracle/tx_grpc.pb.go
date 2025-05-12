@@ -20,7 +20,6 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Msg_UpdateParams_FullMethodName = "/realfin.oracle.Msg/UpdateParams"
-	Msg_SubmitPrice_FullMethodName  = "/realfin.oracle.Msg/SubmitPrice"
 	Msg_CreatePrice_FullMethodName  = "/realfin.oracle.Msg/CreatePrice"
 	Msg_UpdatePrice_FullMethodName  = "/realfin.oracle.Msg/UpdatePrice"
 	Msg_DeletePrice_FullMethodName  = "/realfin.oracle.Msg/DeletePrice"
@@ -33,7 +32,6 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
-	SubmitPrice(ctx context.Context, in *MsgSubmitPrice, opts ...grpc.CallOption) (*MsgSubmitPriceResponse, error)
 	CreatePrice(ctx context.Context, in *MsgCreatePrice, opts ...grpc.CallOption) (*MsgCreatePriceResponse, error)
 	UpdatePrice(ctx context.Context, in *MsgUpdatePrice, opts ...grpc.CallOption) (*MsgUpdatePriceResponse, error)
 	DeletePrice(ctx context.Context, in *MsgDeletePrice, opts ...grpc.CallOption) (*MsgDeletePriceResponse, error)
@@ -50,15 +48,6 @@ func NewMsgClient(cc grpc.ClientConnInterface) MsgClient {
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
 	err := c.cc.Invoke(ctx, Msg_UpdateParams_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) SubmitPrice(ctx context.Context, in *MsgSubmitPrice, opts ...grpc.CallOption) (*MsgSubmitPriceResponse, error) {
-	out := new(MsgSubmitPriceResponse)
-	err := c.cc.Invoke(ctx, Msg_SubmitPrice_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +88,6 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
-	SubmitPrice(context.Context, *MsgSubmitPrice) (*MsgSubmitPriceResponse, error)
 	CreatePrice(context.Context, *MsgCreatePrice) (*MsgCreatePriceResponse, error)
 	UpdatePrice(context.Context, *MsgUpdatePrice) (*MsgUpdatePriceResponse, error)
 	DeletePrice(context.Context, *MsgDeletePrice) (*MsgDeletePriceResponse, error)
@@ -112,9 +100,6 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
-}
-func (UnimplementedMsgServer) SubmitPrice(context.Context, *MsgSubmitPrice) (*MsgSubmitPriceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SubmitPrice not implemented")
 }
 func (UnimplementedMsgServer) CreatePrice(context.Context, *MsgCreatePrice) (*MsgCreatePriceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePrice not implemented")
@@ -152,24 +137,6 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_SubmitPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSubmitPrice)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).SubmitPrice(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Msg_SubmitPrice_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).SubmitPrice(ctx, req.(*MsgSubmitPrice))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -238,10 +205,6 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
-		},
-		{
-			MethodName: "SubmitPrice",
-			Handler:    _Msg_SubmitPrice_Handler,
 		},
 		{
 			MethodName: "CreatePrice",

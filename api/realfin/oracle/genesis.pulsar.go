@@ -66,10 +66,9 @@ func (x *_GenesisState_2_list) IsValid() bool {
 }
 
 var (
-	md_GenesisState            protoreflect.MessageDescriptor
-	fd_GenesisState_params     protoreflect.FieldDescriptor
-	fd_GenesisState_priceList  protoreflect.FieldDescriptor
-	fd_GenesisState_priceCount protoreflect.FieldDescriptor
+	md_GenesisState           protoreflect.MessageDescriptor
+	fd_GenesisState_params    protoreflect.FieldDescriptor
+	fd_GenesisState_priceList protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -77,7 +76,6 @@ func init() {
 	md_GenesisState = File_realfin_oracle_genesis_proto.Messages().ByName("GenesisState")
 	fd_GenesisState_params = md_GenesisState.Fields().ByName("params")
 	fd_GenesisState_priceList = md_GenesisState.Fields().ByName("priceList")
-	fd_GenesisState_priceCount = md_GenesisState.Fields().ByName("priceCount")
 }
 
 var _ protoreflect.Message = (*fastReflection_GenesisState)(nil)
@@ -157,12 +155,6 @@ func (x *fastReflection_GenesisState) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
-	if x.PriceCount != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.PriceCount)
-		if !f(fd_GenesisState_priceCount, value) {
-			return
-		}
-	}
 }
 
 // Has reports whether a field is populated.
@@ -182,8 +174,6 @@ func (x *fastReflection_GenesisState) Has(fd protoreflect.FieldDescriptor) bool 
 		return x.Params != nil
 	case "realfin.oracle.GenesisState.priceList":
 		return len(x.PriceList) != 0
-	case "realfin.oracle.GenesisState.priceCount":
-		return x.PriceCount != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -204,8 +194,6 @@ func (x *fastReflection_GenesisState) Clear(fd protoreflect.FieldDescriptor) {
 		x.Params = nil
 	case "realfin.oracle.GenesisState.priceList":
 		x.PriceList = nil
-	case "realfin.oracle.GenesisState.priceCount":
-		x.PriceCount = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -231,9 +219,6 @@ func (x *fastReflection_GenesisState) Get(descriptor protoreflect.FieldDescripto
 		}
 		listValue := &_GenesisState_2_list{list: &x.PriceList}
 		return protoreflect.ValueOfList(listValue)
-	case "realfin.oracle.GenesisState.priceCount":
-		value := x.PriceCount
-		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -260,8 +245,6 @@ func (x *fastReflection_GenesisState) Set(fd protoreflect.FieldDescriptor, value
 		lv := value.List()
 		clv := lv.(*_GenesisState_2_list)
 		x.PriceList = *clv.list
-	case "realfin.oracle.GenesisState.priceCount":
-		x.PriceCount = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -293,8 +276,6 @@ func (x *fastReflection_GenesisState) Mutable(fd protoreflect.FieldDescriptor) p
 		}
 		value := &_GenesisState_2_list{list: &x.PriceList}
 		return protoreflect.ValueOfList(value)
-	case "realfin.oracle.GenesisState.priceCount":
-		panic(fmt.Errorf("field priceCount of message realfin.oracle.GenesisState is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -314,8 +295,6 @@ func (x *fastReflection_GenesisState) NewField(fd protoreflect.FieldDescriptor) 
 	case "realfin.oracle.GenesisState.priceList":
 		list := []*Price{}
 		return protoreflect.ValueOfList(&_GenesisState_2_list{list: &list})
-	case "realfin.oracle.GenesisState.priceCount":
-		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: realfin.oracle.GenesisState"))
@@ -395,9 +374,6 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 				n += 1 + l + runtime.Sov(uint64(l))
 			}
 		}
-		if x.PriceCount != 0 {
-			n += 1 + runtime.Sov(uint64(x.PriceCount))
-		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -426,11 +402,6 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
-		}
-		if x.PriceCount != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.PriceCount))
-			i--
-			dAtA[i] = 0x18
 		}
 		if len(x.PriceList) > 0 {
 			for iNdEx := len(x.PriceList) - 1; iNdEx >= 0; iNdEx-- {
@@ -581,25 +552,6 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
-			case 3:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field PriceCount", wireType)
-				}
-				x.PriceCount = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.PriceCount |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -655,9 +607,8 @@ type GenesisState struct {
 	unknownFields protoimpl.UnknownFields
 
 	// params defines all the parameters of the module.
-	Params     *Params  `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
-	PriceList  []*Price `protobuf:"bytes,2,rep,name=priceList,proto3" json:"priceList,omitempty"`
-	PriceCount uint64   `protobuf:"varint,3,opt,name=priceCount,proto3" json:"priceCount,omitempty"`
+	Params    *Params  `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+	PriceList []*Price `protobuf:"bytes,2,rep,name=priceList,proto3" json:"priceList,omitempty"`
 }
 
 func (x *GenesisState) Reset() {
@@ -694,13 +645,6 @@ func (x *GenesisState) GetPriceList() []*Price {
 	return nil
 }
 
-func (x *GenesisState) GetPriceCount() uint64 {
-	if x != nil {
-		return x.PriceCount
-	}
-	return 0
-}
-
 var File_realfin_oracle_genesis_proto protoreflect.FileDescriptor
 
 var file_realfin_oracle_genesis_proto_rawDesc = []byte{
@@ -713,7 +657,7 @@ var file_realfin_oracle_genesis_proto_rawDesc = []byte{
 	0x2f, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1a, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x6f, 0x72,
 	0x61, 0x63, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x69, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0xa4, 0x01, 0x0a, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74, 0x61, 0x74,
+	0x22, 0x84, 0x01, 0x0a, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74, 0x61, 0x74,
 	0x65, 0x12, 0x39, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x16, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63,
 	0x6c, 0x65, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8,
@@ -721,9 +665,7 @@ var file_realfin_oracle_genesis_proto_rawDesc = []byte{
 	0x70, 0x72, 0x69, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x15, 0x2e, 0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
 	0x2e, 0x50, 0x72, 0x69, 0x63, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x09, 0x70, 0x72,
-	0x69, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x70, 0x72, 0x69, 0x63, 0x65,
-	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x70, 0x72, 0x69,
-	0x63, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x97, 0x01, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e,
+	0x69, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x42, 0x97, 0x01, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e,
 	0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x42, 0x0c,
 	0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x1a,
 	0x72, 0x65, 0x61, 0x6c, 0x66, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x61, 0x6c,
