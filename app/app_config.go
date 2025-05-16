@@ -60,6 +60,14 @@ import (
 	_ "realfin/x/realfin/module" // import for side-effects
 	realfinmoduletypes "realfin/x/realfin/types"
 
+	creditscoremodulev1 "realfin/api/realfin/creditscore/module"
+	_ "realfin/x/creditscore/module" // import for side-effects
+	creditscoremoduletypes "realfin/x/creditscore/types"
+
+	realestatemodulev1 "realfin/api/realfin/realestate/module"
+	_ "realfin/x/realestate/module" // import for side-effects
+	realestatemoduletypes "realfin/x/realestate/types"
+
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
@@ -101,6 +109,8 @@ var (
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
 		oraclemoduletypes.ModuleName,
+		creditscoremoduletypes.ModuleName,
+		realestatemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -128,6 +138,8 @@ var (
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
 		oraclemoduletypes.ModuleName,
+		creditscoremoduletypes.ModuleName,
+		realestatemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -149,6 +161,8 @@ var (
 		realfinmoduletypes.ModuleName,
 		wasmtypes.ModuleName,
 		oraclemoduletypes.ModuleName,
+		creditscoremoduletypes.ModuleName,
+		realestatemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -312,6 +326,14 @@ var (
 			{
 				Name:   oraclemoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&oraclemodulev1.Module{}),
+			},
+			{
+				Name:   creditscoremoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&creditscoremodulev1.Module{}),
+			},
+			{
+				Name:   realestatemoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&realestatemodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

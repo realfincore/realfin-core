@@ -78,6 +78,9 @@ import (
 	oraclemodulekeeper "realfin/x/oracle/keeper"
 	realfinmodulekeeper "realfin/x/realfin/keeper"
 
+	creditscoremodulekeeper "realfin/x/creditscore/keeper"
+	realestatemodulekeeper "realfin/x/realestate/keeper"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"realfin/docs"
@@ -152,7 +155,9 @@ type App struct {
 	WasmKeeper       wasmkeeper.Keeper
 	ScopedWasmKeeper capabilitykeeper.ScopedKeeper
 
-	OracleKeeper oraclemodulekeeper.Keeper
+	OracleKeeper      oraclemodulekeeper.Keeper
+	CreditscoreKeeper creditscoremodulekeeper.Keeper
+	RealestateKeeper  realestatemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -258,6 +263,8 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.RealfinKeeper,
 		&app.OracleKeeper,
+		&app.CreditscoreKeeper,
+		&app.RealestateKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
