@@ -3,7 +3,6 @@ package oracle
 import (
 	"math/rand"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
@@ -11,31 +10,6 @@ import (
 	"realfin/testutil/sample"
 	oraclesimulation "realfin/x/oracle/simulation"
 	"realfin/x/oracle/types"
-)
-
-// avoid unused import issue
-var (
-	_ = oraclesimulation.FindAccount
-	_ = rand.Rand{}
-	_ = sample.AccAddress
-	_ = sdk.AccAddress{}
-	_ = simulation.MsgEntryKind
-)
-
-const (
-	opWeightMsgCreatePrice = "op_weight_msg_price"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreatePrice int = 100
-
-	opWeightMsgUpdatePrice = "op_weight_msg_price"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgUpdatePrice int = 100
-
-	opWeightMsgDeletePrice = "op_weight_msg_price"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgDeletePrice int = 100
-
-	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module.
@@ -46,18 +20,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	oracleGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
-		PriceList: []types.Price{
-			{
-				Creator: sample.AccAddress(),
-				Symbol:  "0",
-			},
-			{
-				Creator: sample.AccAddress(),
-				Symbol:  "1",
-			},
-		},
-		// this line is used by starport scaffolding # simapp/module/genesisState
-	}
+		PriceMap: []types.Price{{Creator: sample.AccAddress(),
+			Symbol: "0",
+		}, {Creator: sample.AccAddress(),
+			Symbol: "1",
+		}}}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&oracleGenesis)
 }
 
@@ -67,6 +34,10 @@ func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+	const (
+		opWeightMsgCreatePrice          = "op_weight_msg_oracle"
+		defaultWeightMsgCreatePrice int = 100
+	)
 
 	var weightMsgCreatePrice int
 	simState.AppParams.GetOrGenerate(opWeightMsgCreatePrice, &weightMsgCreatePrice, nil,
@@ -76,8 +47,12 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreatePrice,
-		oraclesimulation.SimulateMsgCreatePrice(am.accountKeeper, am.bankKeeper, am.keeper),
+		oraclesimulation.SimulateMsgCreatePrice(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
+	const (
+		opWeightMsgUpdatePrice          = "op_weight_msg_oracle"
+		defaultWeightMsgUpdatePrice int = 100
+	)
 
 	var weightMsgUpdatePrice int
 	simState.AppParams.GetOrGenerate(opWeightMsgUpdatePrice, &weightMsgUpdatePrice, nil,
@@ -87,8 +62,12 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgUpdatePrice,
-		oraclesimulation.SimulateMsgUpdatePrice(am.accountKeeper, am.bankKeeper, am.keeper),
+		oraclesimulation.SimulateMsgUpdatePrice(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
+	const (
+		opWeightMsgDeletePrice          = "op_weight_msg_oracle"
+		defaultWeightMsgDeletePrice int = 100
+	)
 
 	var weightMsgDeletePrice int
 	simState.AppParams.GetOrGenerate(opWeightMsgDeletePrice, &weightMsgDeletePrice, nil,
@@ -98,41 +77,13 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeletePrice,
-		oraclesimulation.SimulateMsgDeletePrice(am.accountKeeper, am.bankKeeper, am.keeper),
+		oraclesimulation.SimulateMsgDeletePrice(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
-
-	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
 }
 
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
-	return []simtypes.WeightedProposalMsg{
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgCreatePrice,
-			defaultWeightMsgCreatePrice,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				oraclesimulation.SimulateMsgCreatePrice(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgUpdatePrice,
-			defaultWeightMsgUpdatePrice,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				oraclesimulation.SimulateMsgUpdatePrice(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgDeletePrice,
-			defaultWeightMsgDeletePrice,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				oraclesimulation.SimulateMsgDeletePrice(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		// this line is used by starport scaffolding # simapp/module/OpMsg
-	}
+	return []simtypes.WeightedProposalMsg{}
 }

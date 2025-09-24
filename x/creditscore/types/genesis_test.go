@@ -20,25 +20,13 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc: "valid genesis state",
-			genState: &types.GenesisState{
-
-				RateList: []types.Rate{
-					{
-						Symbol: "0",
-					},
-					{
-						Symbol: "1",
-					},
-				},
-				// this line is used by starport scaffolding # types/genesis/validField
-			},
-			valid: true,
-		},
-		{
+			desc:     "valid genesis state",
+			genState: &types.GenesisState{RateMap: []types.Rate{{Symbol: "0"}, {Symbol: "1"}}},
+			valid:    true,
+		}, {
 			desc: "duplicated rate",
 			genState: &types.GenesisState{
-				RateList: []types.Rate{
+				RateMap: []types.Rate{
 					{
 						Symbol: "0",
 					},
@@ -49,7 +37,6 @@ func TestGenesisState_Validate(t *testing.T) {
 			},
 			valid: false,
 		},
-		// this line is used by starport scaffolding # types/genesis/testcase
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {

@@ -3,7 +3,6 @@ package realestate
 import (
 	"math/rand"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
@@ -11,31 +10,6 @@ import (
 	"realfin/testutil/sample"
 	realestatesimulation "realfin/x/realestate/simulation"
 	"realfin/x/realestate/types"
-)
-
-// avoid unused import issue
-var (
-	_ = realestatesimulation.FindAccount
-	_ = rand.Rand{}
-	_ = sample.AccAddress
-	_ = sdk.AccAddress{}
-	_ = simulation.MsgEntryKind
-)
-
-const (
-	opWeightMsgCreateRate = "op_weight_msg_rate"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateRate int = 100
-
-	opWeightMsgUpdateRate = "op_weight_msg_rate"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgUpdateRate int = 100
-
-	opWeightMsgDeleteRate = "op_weight_msg_rate"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgDeleteRate int = 100
-
-	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module.
@@ -46,18 +20,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	realestateGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
-		RateList: []types.Rate{
-			{
-				Creator: sample.AccAddress(),
-				Symbol:  "0",
-			},
-			{
-				Creator: sample.AccAddress(),
-				Symbol:  "1",
-			},
-		},
-		// this line is used by starport scaffolding # simapp/module/genesisState
-	}
+		RateMap: []types.Rate{{Creator: sample.AccAddress(),
+			Symbol: "0",
+		}, {Creator: sample.AccAddress(),
+			Symbol: "1",
+		}}}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&realestateGenesis)
 }
 
@@ -67,6 +34,10 @@ func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+	const (
+		opWeightMsgCreateRate          = "op_weight_msg_realestate"
+		defaultWeightMsgCreateRate int = 100
+	)
 
 	var weightMsgCreateRate int
 	simState.AppParams.GetOrGenerate(opWeightMsgCreateRate, &weightMsgCreateRate, nil,
@@ -76,8 +47,12 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreateRate,
-		realestatesimulation.SimulateMsgCreateRate(am.accountKeeper, am.bankKeeper, am.keeper),
+		realestatesimulation.SimulateMsgCreateRate(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
+	const (
+		opWeightMsgUpdateRate          = "op_weight_msg_realestate"
+		defaultWeightMsgUpdateRate int = 100
+	)
 
 	var weightMsgUpdateRate int
 	simState.AppParams.GetOrGenerate(opWeightMsgUpdateRate, &weightMsgUpdateRate, nil,
@@ -87,8 +62,12 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgUpdateRate,
-		realestatesimulation.SimulateMsgUpdateRate(am.accountKeeper, am.bankKeeper, am.keeper),
+		realestatesimulation.SimulateMsgUpdateRate(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
+	const (
+		opWeightMsgDeleteRate          = "op_weight_msg_realestate"
+		defaultWeightMsgDeleteRate int = 100
+	)
 
 	var weightMsgDeleteRate int
 	simState.AppParams.GetOrGenerate(opWeightMsgDeleteRate, &weightMsgDeleteRate, nil,
@@ -98,41 +77,13 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeleteRate,
-		realestatesimulation.SimulateMsgDeleteRate(am.accountKeeper, am.bankKeeper, am.keeper),
+		realestatesimulation.SimulateMsgDeleteRate(am.authKeeper, am.bankKeeper, am.keeper, simState.TxConfig),
 	))
-
-	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
 }
 
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
-	return []simtypes.WeightedProposalMsg{
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgCreateRate,
-			defaultWeightMsgCreateRate,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				realestatesimulation.SimulateMsgCreateRate(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgUpdateRate,
-			defaultWeightMsgUpdateRate,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				realestatesimulation.SimulateMsgUpdateRate(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgDeleteRate,
-			defaultWeightMsgDeleteRate,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				realestatesimulation.SimulateMsgDeleteRate(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		// this line is used by starport scaffolding # simapp/module/OpMsg
-	}
+	return []simtypes.WeightedProposalMsg{}
 }

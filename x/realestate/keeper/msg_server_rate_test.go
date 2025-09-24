@@ -7,34 +7,43 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 
-	keepertest "realfin/testutil/keeper"
 	"realfin/x/realestate/keeper"
 	"realfin/x/realestate/types"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func TestRateMsgServerCreate(t *testing.T) {
-	k, ctx := keepertest.RealestateKeeper(t)
-	srv := keeper.NewMsgServerImpl(k)
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
 	for i := 0; i < 5; i++ {
 		expected := &types.MsgCreateRate{Creator: creator,
 			Symbol: strconv.Itoa(i),
 		}
-		_, err := srv.CreateRate(ctx, expected)
+		_, err := srv.CreateRate(f.ctx, expected)
 		require.NoError(t, err)
-		rst, found := k.GetRate(ctx,
-			expected.Symbol,
-		)
-		require.True(t, found)
+		rst, err := f.keeper.Rate.Get(f.ctx, expected.Symbol)
+		require.NoError(t, err)
 		require.Equal(t, expected.Creator, rst.Creator)
 	}
 }
 
 func TestRateMsgServerUpdate(t *testing.T) {
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
+	unauthorizedAddr, err := f.addressCodec.BytesToString([]byte("unauthorizedAddr___________"))
+	require.NoError(t, err)
+
+	expected := &types.MsgCreateRate{Creator: creator,
+		Symbol: strconv.Itoa(0),
+	}
+	_, err = srv.CreateRate(f.ctx, expected)
+	require.NoError(t, err)
 
 	tests := []struct {
 		desc    string
@@ -42,45 +51,42 @@ func TestRateMsgServerUpdate(t *testing.T) {
 		err     error
 	}{
 		{
-			desc: "Completed",
-			request: &types.MsgUpdateRate{Creator: creator,
+			desc: "invalid address",
+			request: &types.MsgUpdateRate{Creator: "invalid",
 				Symbol: strconv.Itoa(0),
 			},
+			err: sdkerrors.ErrInvalidAddress,
 		},
 		{
-			desc: "Unauthorized",
-			request: &types.MsgUpdateRate{Creator: "B",
+			desc: "unauthorized",
+			request: &types.MsgUpdateRate{Creator: unauthorizedAddr,
 				Symbol: strconv.Itoa(0),
 			},
 			err: sdkerrors.ErrUnauthorized,
 		},
 		{
-			desc: "KeyNotFound",
+			desc: "key not found",
 			request: &types.MsgUpdateRate{Creator: creator,
 				Symbol: strconv.Itoa(100000),
 			},
 			err: sdkerrors.ErrKeyNotFound,
 		},
+		{
+			desc: "completed",
+			request: &types.MsgUpdateRate{Creator: creator,
+				Symbol: strconv.Itoa(0),
+			},
+		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			k, ctx := keepertest.RealestateKeeper(t)
-			srv := keeper.NewMsgServerImpl(k)
-			expected := &types.MsgCreateRate{Creator: creator,
-				Symbol: strconv.Itoa(0),
-			}
-			_, err := srv.CreateRate(ctx, expected)
-			require.NoError(t, err)
-
-			_, err = srv.UpdateRate(ctx, tc.request)
+			_, err = srv.UpdateRate(f.ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
 				require.NoError(t, err)
-				rst, found := k.GetRate(ctx,
-					expected.Symbol,
-				)
-				require.True(t, found)
+				rst, err := f.keeper.Rate.Get(f.ctx, expected.Symbol)
+				require.NoError(t, err)
 				require.Equal(t, expected.Creator, rst.Creator)
 			}
 		})
@@ -88,7 +94,19 @@ func TestRateMsgServerUpdate(t *testing.T) {
 }
 
 func TestRateMsgServerDelete(t *testing.T) {
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
+	unauthorizedAddr, err := f.addressCodec.BytesToString([]byte("unauthorizedAddr___________"))
+	require.NoError(t, err)
+
+	_, err = srv.CreateRate(f.ctx, &types.MsgCreateRate{Creator: creator,
+		Symbol: strconv.Itoa(0),
+	})
+	require.NoError(t, err)
 
 	tests := []struct {
 		desc    string
@@ -96,43 +114,42 @@ func TestRateMsgServerDelete(t *testing.T) {
 		err     error
 	}{
 		{
-			desc: "Completed",
-			request: &types.MsgDeleteRate{Creator: creator,
+			desc: "invalid address",
+			request: &types.MsgDeleteRate{Creator: "invalid",
 				Symbol: strconv.Itoa(0),
 			},
+			err: sdkerrors.ErrInvalidAddress,
 		},
 		{
-			desc: "Unauthorized",
-			request: &types.MsgDeleteRate{Creator: "B",
+			desc: "unauthorized",
+			request: &types.MsgDeleteRate{Creator: unauthorizedAddr,
 				Symbol: strconv.Itoa(0),
 			},
 			err: sdkerrors.ErrUnauthorized,
 		},
 		{
-			desc: "KeyNotFound",
+			desc: "key not found",
 			request: &types.MsgDeleteRate{Creator: creator,
 				Symbol: strconv.Itoa(100000),
 			},
 			err: sdkerrors.ErrKeyNotFound,
 		},
+		{
+			desc: "completed",
+			request: &types.MsgDeleteRate{Creator: creator,
+				Symbol: strconv.Itoa(0),
+			},
+		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			k, ctx := keepertest.RealestateKeeper(t)
-			srv := keeper.NewMsgServerImpl(k)
-
-			_, err := srv.CreateRate(ctx, &types.MsgCreateRate{Creator: creator,
-				Symbol: strconv.Itoa(0),
-			})
-			require.NoError(t, err)
-			_, err = srv.DeleteRate(ctx, tc.request)
+			_, err = srv.DeleteRate(f.ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
 				require.NoError(t, err)
-				_, found := k.GetRate(ctx,
-					tc.request.Symbol,
-				)
+				found, err := f.keeper.Rate.Has(f.ctx, tc.request.Symbol)
+				require.NoError(t, err)
 				require.False(t, found)
 			}
 		})

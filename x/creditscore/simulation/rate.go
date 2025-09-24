@@ -4,23 +4,21 @@ import (
 	"math/rand"
 	"strconv"
 
-	"realfin/x/creditscore/keeper"
-	"realfin/x/creditscore/types"
-
 	"github.com/cosmos/cosmos-sdk/baseapp"
+	"github.com/cosmos/cosmos-sdk/client"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+
+	"realfin/x/creditscore/keeper"
+	"realfin/x/creditscore/types"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func SimulateMsgCreateRate(
-	ak types.AccountKeeper,
+	ak types.AuthKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
+	txGen client.TxConfig,
 ) simtypes.Operation {
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
@@ -32,15 +30,15 @@ func SimulateMsgCreateRate(
 			Symbol:  strconv.Itoa(i),
 		}
 
-		_, found := k.GetRate(ctx, msg.Symbol)
-		if found {
+		found, err := k.Rate.Has(ctx, msg.Symbol)
+		if err == nil && found {
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "Rate already exist"), nil, nil
 		}
 
 		txCtx := simulation.OperationInput{
 			R:               r,
 			App:             app,
-			TxGen:           moduletestutil.MakeTestEncodingConfig().TxConfig,
+			TxGen:           txGen,
 			Cdc:             nil,
 			Msg:             msg,
 			Context:         ctx,
@@ -55,9 +53,10 @@ func SimulateMsgCreateRate(
 }
 
 func SimulateMsgUpdateRate(
-	ak types.AccountKeeper,
+	ak types.AuthKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
+	txGen client.TxConfig,
 ) simtypes.Operation {
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
@@ -65,11 +64,25 @@ func SimulateMsgUpdateRate(
 			simAccount = simtypes.Account{}
 			rate       = types.Rate{}
 			msg        = &types.MsgUpdateRate{}
-			allRate    = k.GetAllRate(ctx)
 			found      = false
 		)
+
+		var allRate []types.Rate
+		err := k.Rate.Walk(ctx, nil, func(key string, value types.Rate) (stop bool, err error) {
+			allRate = append(allRate, value)
+			return false, nil
+		})
+		if err != nil {
+			panic(err)
+		}
+
 		for _, obj := range allRate {
-			simAccount, found = FindAccount(accs, obj.Creator)
+			acc, err := ak.AddressCodec().StringToBytes(obj.Creator)
+			if err != nil {
+				return simtypes.OperationMsg{}, nil, err
+			}
+
+			simAccount, found = simtypes.FindAccount(accs, sdk.AccAddress(acc))
 			if found {
 				rate = obj
 				break
@@ -79,13 +92,12 @@ func SimulateMsgUpdateRate(
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "rate creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-
 		msg.Symbol = rate.Symbol
 
 		txCtx := simulation.OperationInput{
 			R:               r,
 			App:             app,
-			TxGen:           moduletestutil.MakeTestEncodingConfig().TxConfig,
+			TxGen:           txGen,
 			Cdc:             nil,
 			Msg:             msg,
 			Context:         ctx,
@@ -100,9 +112,10 @@ func SimulateMsgUpdateRate(
 }
 
 func SimulateMsgDeleteRate(
-	ak types.AccountKeeper,
+	ak types.AuthKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
+	txGen client.TxConfig,
 ) simtypes.Operation {
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
@@ -110,11 +123,25 @@ func SimulateMsgDeleteRate(
 			simAccount = simtypes.Account{}
 			rate       = types.Rate{}
 			msg        = &types.MsgUpdateRate{}
-			allRate    = k.GetAllRate(ctx)
 			found      = false
 		)
+
+		var allRate []types.Rate
+		err := k.Rate.Walk(ctx, nil, func(key string, value types.Rate) (stop bool, err error) {
+			allRate = append(allRate, value)
+			return false, nil
+		})
+		if err != nil {
+			panic(err)
+		}
+
 		for _, obj := range allRate {
-			simAccount, found = FindAccount(accs, obj.Creator)
+			acc, err := ak.AddressCodec().StringToBytes(obj.Creator)
+			if err != nil {
+				return simtypes.OperationMsg{}, nil, err
+			}
+
+			simAccount, found = simtypes.FindAccount(accs, sdk.AccAddress(acc))
 			if found {
 				rate = obj
 				break
@@ -124,13 +151,12 @@ func SimulateMsgDeleteRate(
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "rate creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-
 		msg.Symbol = rate.Symbol
 
 		txCtx := simulation.OperationInput{
 			R:               r,
 			App:             app,
-			TxGen:           moduletestutil.MakeTestEncodingConfig().TxConfig,
+			TxGen:           txGen,
 			Cdc:             nil,
 			Msg:             msg,
 			Context:         ctx,

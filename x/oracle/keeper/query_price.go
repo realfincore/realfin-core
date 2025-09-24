@@ -2,36 +2,29 @@ package keeper
 
 import (
 	"context"
+	"errors"
 
 	"realfin/x/oracle/types"
 
-	"cosmossdk.io/store/prefix"
-	"github.com/cosmos/cosmos-sdk/runtime"
+	"cosmossdk.io/collections"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) PriceAll(ctx context.Context, req *types.QueryAllPriceRequest) (*types.QueryAllPriceResponse, error) {
+func (q queryServer) ListPrice(ctx context.Context, req *types.QueryAllPriceRequest) (*types.QueryAllPriceResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var prices []types.Price
-
-	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	priceStore := prefix.NewStore(store, types.KeyPrefix(types.PriceKeyPrefix))
-
-	pageRes, err := query.Paginate(priceStore, req.Pagination, func(key []byte, value []byte) error {
-		var price types.Price
-		if err := k.cdc.Unmarshal(value, &price); err != nil {
-			return err
-		}
-
-		prices = append(prices, price)
-		return nil
-	})
-
+	prices, pageRes, err := query.CollectionPaginate(
+		ctx,
+		q.k.Price,
+		req.Pagination,
+		func(_ string, value types.Price) (types.Price, error) {
+			return value, nil
+		},
+	)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -39,17 +32,18 @@ func (k Keeper) PriceAll(ctx context.Context, req *types.QueryAllPriceRequest) (
 	return &types.QueryAllPriceResponse{Price: prices, Pagination: pageRes}, nil
 }
 
-func (k Keeper) Price(ctx context.Context, req *types.QueryGetPriceRequest) (*types.QueryGetPriceResponse, error) {
+func (q queryServer) GetPrice(ctx context.Context, req *types.QueryGetPriceRequest) (*types.QueryGetPriceResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	val, found := k.GetPrice(
-		ctx,
-		req.Symbol,
-	)
-	if !found {
-		return nil, status.Error(codes.NotFound, "not found")
+	val, err := q.k.Price.Get(ctx, req.Symbol)
+	if err != nil {
+		if errors.Is(err, collections.ErrNotFound) {
+			return nil, status.Error(codes.NotFound, "not found")
+		}
+
+		return nil, status.Error(codes.Internal, "internal error")
 	}
 
 	return &types.QueryGetPriceResponse{Price: val}, nil

@@ -3,14 +3,14 @@ package realestate
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "realfin/api/realfin/realestate"
+	"realfin/x/realestate/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.
 func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 	return &autocliv1.ModuleOptions{
 		Query: &autocliv1.ServiceCommandDescriptor{
-			Service: modulev1.Query_ServiceDesc.ServiceName,
+			Service: types.Query_serviceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
 					RpcMethod: "Params",
@@ -18,21 +18,22 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:     "Shows the parameters of the module",
 				},
 				{
-					RpcMethod: "RateAll",
+					RpcMethod: "ListRate",
 					Use:       "list-rate",
 					Short:     "List all rate",
 				},
 				{
-					RpcMethod:      "Rate",
-					Use:            "show-rate [id]",
-					Short:          "Shows a rate",
+					RpcMethod:      "GetRate",
+					Use:            "get-rate [id]",
+					Short:          "Gets a rate",
+					Alias:          []string{"show-rate"},
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "symbol"}},
 				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
-			Service:              modulev1.Msg_ServiceDesc.ServiceName,
+			Service:              types.Msg_serviceDesc.ServiceName,
 			EnhanceCustomCommand: true, // only required if you want to use the custom command
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{

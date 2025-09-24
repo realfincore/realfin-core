@@ -2,36 +2,29 @@ package keeper
 
 import (
 	"context"
+	"errors"
 
 	"realfin/x/realestate/types"
 
-	"cosmossdk.io/store/prefix"
-	"github.com/cosmos/cosmos-sdk/runtime"
+	"cosmossdk.io/collections"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) RateAll(ctx context.Context, req *types.QueryAllRateRequest) (*types.QueryAllRateResponse, error) {
+func (q queryServer) ListRate(ctx context.Context, req *types.QueryAllRateRequest) (*types.QueryAllRateResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var rates []types.Rate
-
-	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	rateStore := prefix.NewStore(store, types.KeyPrefix(types.RateKeyPrefix))
-
-	pageRes, err := query.Paginate(rateStore, req.Pagination, func(key []byte, value []byte) error {
-		var rate types.Rate
-		if err := k.cdc.Unmarshal(value, &rate); err != nil {
-			return err
-		}
-
-		rates = append(rates, rate)
-		return nil
-	})
-
+	rates, pageRes, err := query.CollectionPaginate(
+		ctx,
+		q.k.Rate,
+		req.Pagination,
+		func(_ string, value types.Rate) (types.Rate, error) {
+			return value, nil
+		},
+	)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -39,17 +32,18 @@ func (k Keeper) RateAll(ctx context.Context, req *types.QueryAllRateRequest) (*t
 	return &types.QueryAllRateResponse{Rate: rates, Pagination: pageRes}, nil
 }
 
-func (k Keeper) Rate(ctx context.Context, req *types.QueryGetRateRequest) (*types.QueryGetRateResponse, error) {
+func (q queryServer) GetRate(ctx context.Context, req *types.QueryGetRateRequest) (*types.QueryGetRateResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	val, found := k.GetRate(
-		ctx,
-		req.Symbol,
-	)
-	if !found {
-		return nil, status.Error(codes.NotFound, "not found")
+	val, err := q.k.Rate.Get(ctx, req.Symbol)
+	if err != nil {
+		if errors.Is(err, collections.ErrNotFound) {
+			return nil, status.Error(codes.NotFound, "not found")
+		}
+
+		return nil, status.Error(codes.Internal, "internal error")
 	}
 
 	return &types.QueryGetRateResponse{Rate: val}, nil

@@ -7,34 +7,43 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 
-	keepertest "realfin/testutil/keeper"
 	"realfin/x/oracle/keeper"
 	"realfin/x/oracle/types"
 )
 
-// Prevent strconv unused error
-var _ = strconv.IntSize
-
 func TestPriceMsgServerCreate(t *testing.T) {
-	k, ctx := keepertest.OracleKeeper(t)
-	srv := keeper.NewMsgServerImpl(k)
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
 	for i := 0; i < 5; i++ {
 		expected := &types.MsgCreatePrice{Creator: creator,
 			Symbol: strconv.Itoa(i),
 		}
-		_, err := srv.CreatePrice(ctx, expected)
+		_, err := srv.CreatePrice(f.ctx, expected)
 		require.NoError(t, err)
-		rst, found := k.GetPrice(ctx,
-			expected.Symbol,
-		)
-		require.True(t, found)
+		rst, err := f.keeper.Price.Get(f.ctx, expected.Symbol)
+		require.NoError(t, err)
 		require.Equal(t, expected.Creator, rst.Creator)
 	}
 }
 
 func TestPriceMsgServerUpdate(t *testing.T) {
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
+	unauthorizedAddr, err := f.addressCodec.BytesToString([]byte("unauthorizedAddr___________"))
+	require.NoError(t, err)
+
+	expected := &types.MsgCreatePrice{Creator: creator,
+		Symbol: strconv.Itoa(0),
+	}
+	_, err = srv.CreatePrice(f.ctx, expected)
+	require.NoError(t, err)
 
 	tests := []struct {
 		desc    string
@@ -42,45 +51,42 @@ func TestPriceMsgServerUpdate(t *testing.T) {
 		err     error
 	}{
 		{
-			desc: "Completed",
-			request: &types.MsgUpdatePrice{Creator: creator,
+			desc: "invalid address",
+			request: &types.MsgUpdatePrice{Creator: "invalid",
 				Symbol: strconv.Itoa(0),
 			},
+			err: sdkerrors.ErrInvalidAddress,
 		},
 		{
-			desc: "Unauthorized",
-			request: &types.MsgUpdatePrice{Creator: "B",
+			desc: "unauthorized",
+			request: &types.MsgUpdatePrice{Creator: unauthorizedAddr,
 				Symbol: strconv.Itoa(0),
 			},
 			err: sdkerrors.ErrUnauthorized,
 		},
 		{
-			desc: "KeyNotFound",
+			desc: "key not found",
 			request: &types.MsgUpdatePrice{Creator: creator,
 				Symbol: strconv.Itoa(100000),
 			},
 			err: sdkerrors.ErrKeyNotFound,
 		},
+		{
+			desc: "completed",
+			request: &types.MsgUpdatePrice{Creator: creator,
+				Symbol: strconv.Itoa(0),
+			},
+		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			k, ctx := keepertest.OracleKeeper(t)
-			srv := keeper.NewMsgServerImpl(k)
-			expected := &types.MsgCreatePrice{Creator: creator,
-				Symbol: strconv.Itoa(0),
-			}
-			_, err := srv.CreatePrice(ctx, expected)
-			require.NoError(t, err)
-
-			_, err = srv.UpdatePrice(ctx, tc.request)
+			_, err = srv.UpdatePrice(f.ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
 				require.NoError(t, err)
-				rst, found := k.GetPrice(ctx,
-					expected.Symbol,
-				)
-				require.True(t, found)
+				rst, err := f.keeper.Price.Get(f.ctx, expected.Symbol)
+				require.NoError(t, err)
 				require.Equal(t, expected.Creator, rst.Creator)
 			}
 		})
@@ -88,7 +94,19 @@ func TestPriceMsgServerUpdate(t *testing.T) {
 }
 
 func TestPriceMsgServerDelete(t *testing.T) {
-	creator := "A"
+	f := initFixture(t)
+	srv := keeper.NewMsgServerImpl(f.keeper)
+
+	creator, err := f.addressCodec.BytesToString([]byte("signerAddr__________________"))
+	require.NoError(t, err)
+
+	unauthorizedAddr, err := f.addressCodec.BytesToString([]byte("unauthorizedAddr___________"))
+	require.NoError(t, err)
+
+	_, err = srv.CreatePrice(f.ctx, &types.MsgCreatePrice{Creator: creator,
+		Symbol: strconv.Itoa(0),
+	})
+	require.NoError(t, err)
 
 	tests := []struct {
 		desc    string
@@ -96,43 +114,42 @@ func TestPriceMsgServerDelete(t *testing.T) {
 		err     error
 	}{
 		{
-			desc: "Completed",
-			request: &types.MsgDeletePrice{Creator: creator,
+			desc: "invalid address",
+			request: &types.MsgDeletePrice{Creator: "invalid",
 				Symbol: strconv.Itoa(0),
 			},
+			err: sdkerrors.ErrInvalidAddress,
 		},
 		{
-			desc: "Unauthorized",
-			request: &types.MsgDeletePrice{Creator: "B",
+			desc: "unauthorized",
+			request: &types.MsgDeletePrice{Creator: unauthorizedAddr,
 				Symbol: strconv.Itoa(0),
 			},
 			err: sdkerrors.ErrUnauthorized,
 		},
 		{
-			desc: "KeyNotFound",
+			desc: "key not found",
 			request: &types.MsgDeletePrice{Creator: creator,
 				Symbol: strconv.Itoa(100000),
 			},
 			err: sdkerrors.ErrKeyNotFound,
 		},
+		{
+			desc: "completed",
+			request: &types.MsgDeletePrice{Creator: creator,
+				Symbol: strconv.Itoa(0),
+			},
+		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			k, ctx := keepertest.OracleKeeper(t)
-			srv := keeper.NewMsgServerImpl(k)
-
-			_, err := srv.CreatePrice(ctx, &types.MsgCreatePrice{Creator: creator,
-				Symbol: strconv.Itoa(0),
-			})
-			require.NoError(t, err)
-			_, err = srv.DeletePrice(ctx, tc.request)
+			_, err = srv.DeletePrice(f.ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
 				require.NoError(t, err)
-				_, found := k.GetPrice(ctx,
-					tc.request.Symbol,
-				)
+				found, err := f.keeper.Price.Has(f.ctx, tc.request.Symbol)
+				require.NoError(t, err)
 				require.False(t, found)
 			}
 		})

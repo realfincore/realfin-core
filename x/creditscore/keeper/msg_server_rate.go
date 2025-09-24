@@ -2,23 +2,26 @@ package keeper
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
 	"realfin/x/creditscore/types"
 
+	"cosmossdk.io/collections"
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (k msgServer) CreateRate(goCtx context.Context, msg *types.MsgCreateRate) (*types.MsgCreateRateResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+func (k msgServer) CreateRate(ctx context.Context, msg *types.MsgCreateRate) (*types.MsgCreateRateResponse, error) {
+	if _, err := k.addressCodec.StringToBytes(msg.Creator); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("invalid address: %s", err))
+	}
 
 	// Check if the value already exists
-	_, isFound := k.GetRate(
-		ctx,
-		msg.Symbol,
-	)
-	if isFound {
+	ok, err := k.Rate.Has(ctx, msg.Symbol)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, err.Error())
+	} else if ok {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
 	}
 
@@ -30,27 +33,30 @@ func (k msgServer) CreateRate(goCtx context.Context, msg *types.MsgCreateRate) (
 		Description: msg.Description,
 	}
 
-	k.SetRate(
-		ctx,
-		rate,
-	)
+	if err := k.Rate.Set(ctx, rate.Symbol, rate); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, err.Error())
+	}
+
 	return &types.MsgCreateRateResponse{}, nil
 }
 
-func (k msgServer) UpdateRate(goCtx context.Context, msg *types.MsgUpdateRate) (*types.MsgUpdateRateResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+func (k msgServer) UpdateRate(ctx context.Context, msg *types.MsgUpdateRate) (*types.MsgUpdateRateResponse, error) {
+	if _, err := k.addressCodec.StringToBytes(msg.Creator); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("invalid signer address: %s", err))
+	}
 
 	// Check if the value exists
-	valFound, isFound := k.GetRate(
-		ctx,
-		msg.Symbol,
-	)
-	if !isFound {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
+	val, err := k.Rate.Get(ctx, msg.Symbol)
+	if err != nil {
+		if errors.Is(err, collections.ErrNotFound) {
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
+		}
+
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, err.Error())
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != valFound.Creator {
+	if msg.Creator != val.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
@@ -62,32 +68,36 @@ func (k msgServer) UpdateRate(goCtx context.Context, msg *types.MsgUpdateRate) (
 		Description: msg.Description,
 	}
 
-	k.SetRate(ctx, rate)
+	if err := k.Rate.Set(ctx, rate.Symbol, rate); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, "failed to update rate")
+	}
 
 	return &types.MsgUpdateRateResponse{}, nil
 }
 
-func (k msgServer) DeleteRate(goCtx context.Context, msg *types.MsgDeleteRate) (*types.MsgDeleteRateResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+func (k msgServer) DeleteRate(ctx context.Context, msg *types.MsgDeleteRate) (*types.MsgDeleteRateResponse, error) {
+	if _, err := k.addressCodec.StringToBytes(msg.Creator); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("invalid signer address: %s", err))
+	}
 
 	// Check if the value exists
-	valFound, isFound := k.GetRate(
-		ctx,
-		msg.Symbol,
-	)
-	if !isFound {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
+	val, err := k.Rate.Get(ctx, msg.Symbol)
+	if err != nil {
+		if errors.Is(err, collections.ErrNotFound) {
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "index not set")
+		}
+
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, err.Error())
 	}
 
 	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != valFound.Creator {
+	if msg.Creator != val.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.RemoveRate(
-		ctx,
-		msg.Symbol,
-	)
+	if err := k.Rate.Remove(ctx, msg.Symbol); err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrLogic, "failed to remove rate")
+	}
 
 	return &types.MsgDeleteRateResponse{}, nil
 }
