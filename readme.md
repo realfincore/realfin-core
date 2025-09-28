@@ -37,8 +37,8 @@ curl https://get.ignite.com/username/realfin@latest! | sudo bash
 
 ### Price oracle
 
-./realfind tx oracle create-price ETH 5001 0 --from alice
-./realfind tx oracle update-price ETH 5001 0 --from alice
+./realfind tx oracle create-price ETH 1000 name description --from alice
+./realfind tx oracle update-price ETH 1001 name description --from alice
 ./realfind tx oracle delete-price ETH --from alice
 
 ./realfind q oracle show-price ETH

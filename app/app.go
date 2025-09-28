@@ -56,7 +56,7 @@ const (
 	// Name is the name of the application.
 	Name = "realfin"
 	// AccountAddressPrefix is the prefix for accounts addresses.
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "realfin"
 	// ChainCoinType is the coin type of the chain.
 	ChainCoinType = 118
 )
