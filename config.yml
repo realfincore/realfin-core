@@ -1,27 +1,29 @@
-version: 1
 validation: sovereign
-default_denom: urlf
-accounts: 
-- name: alice
-  coins:
-  - 20000token
-  - 200000000urlf
-- name: bob
-  coins:
-  - 10000token
-  - 100000000urlf
-client:
-  openapi:
-    path: docs/static/openapi.json
+version: 1
+accounts:
+    - name: alice
+      coins:
+        - 20000token
+        - 200000000urlf
+    - name: bob
+      coins:
+        - 10000token
+        - 100000000urlf
 faucet:
-  name: bob
-  coins:
-  - 5token
-  - 100000urlf
+    name: bob
+    coins:
+        - 5token
+        - 100000urlf
+client:
+    typescript:
+        path: ts-client
+    openapi:
+        path: docs/static/openapi.json
+default_denom: urlf
 validators:
-- name: alice
-  bonded: 100000000urlf
-- name: validator1
-  bonded: 200000000urlf
-- name: validator2
-  bonded: 100000000urlf
+    - name: alice
+      bonded: 100000000urlf
+    - name: validator1
+      bonded: 200000000urlf
+    - name: validator2
+      bonded: 100000000urlf
